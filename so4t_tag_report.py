@@ -31,7 +31,7 @@ def main():
             so4t_data['questions'] = read_json('questions.json')
             so4t_data['articles'] = read_json('articles.json')
             so4t_data['tags'] = read_json('tags.json')
-            so4t_data['users'] = read_json('users.json')
+            #so4t_data['users'] = read_json('users.json')
             so4t_data['webhooks'] = read_json('webhooks.json')
             so4t_data['communities'] = read_json('communities.json')
         except FileNotFoundError:
@@ -246,7 +246,7 @@ def filter_api_data_by_date(api_data, days):
     api_data['articles'] = articles
 
     # Uncomment to export filtered data to JSON
-    # export_to_json('filtered_api_data', api_data)
+    export_to_json('filtered_api_data', api_data)
 
     return api_data
 
@@ -271,7 +271,7 @@ def process_api_data(api_data):
     tags = process_tags(tags)
     tags = process_questions(tags, api_data['questions'])
     tags = process_articles(tags, api_data['articles'])
-    # tags = process_users(tags, api_data['users']
+    #tags = process_users(tags, api_data['users'])
     tags = process_communities(tags, api_data.get('communities'))
     tags = process_webhooks(tags, api_data['webhooks'])
 
