@@ -1,7 +1,6 @@
 '''
-This Python script is a labor of love and has no formal support from Stack Overflow. 
-If you run into difficulties, reach out to the person who provided you with this script.
-Or, open an issue here: https://github.com/jklick-so/so4t_tag_report/issues
+This Python script is a working proof of concept example of using Stack Overflow APIs for a Tag Report. 
+If you run into difficulties, please leave feedback in the Github Issues.
 '''
 
 # Standard Python libraries

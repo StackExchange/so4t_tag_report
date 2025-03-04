@@ -93,6 +93,6 @@ The `--proxy` argument allows you to use a proxy server to make the API calls. T
 To use this argument, simply append the `--proxy` argument to the end of the command for running the Python script, including the proxy server's address in the argument. Example: `python3 so4t_tag_report.py --url "https://SUBDOMAIN.stackenterprise.co" --key "YOUR_KEY" --token "YOUR_TOKEN" --proxy "PROXY.EXAMPLE.COM:PORTNUMBER"`
 
 ## Support, security, and legal
-If you encounter problems using the script, please open a support issue with Stack Overflow. You can also clone and change the script to suit your needs. It is provided as-is, with no warranty or guarantee of any kind.
+If you encounter problems using the script, please leave feedback in the Github Issues. You can also clone and change the script to suit your needs. It is provided as-is, with no warranty or guarantee of any kind.
 
 All data is handled locally on the device from which the script is run. The script does not transmit data to other parties, such as Stack Overflow. All of the API calls performed are read only, so there is no risk of editing or adding content on your Stack Overflow for Teams instance.
