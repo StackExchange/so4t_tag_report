@@ -1,5 +1,6 @@
 # Standard Python libraries
 import time
+import socket
 
 # Third-party libraries
 import requests
@@ -149,7 +150,7 @@ class V2Client(object):
     
 
     def get_items(self, endpoint_url, params):
-        
+        timeout=10
         # SO Business and Basic require a team slug parameter
         if not self.soe:
             params['team'] = self.team_slug
@@ -160,37 +161,52 @@ class V2Client(object):
                 print(f"Getting page {params['page']} from {endpoint_url}")
             else:
                 print(f"Getting data from {endpoint_url}")
-            response = requests.get(endpoint_url, headers=self.headers, params=params, 
-                                    verify=self.ssl_verify, proxies=self.proxies)
             
-            if response.status_code != 200:
+            try:
+                response = requests.get(endpoint_url, headers=self.headers, params=params, 
+                                    verify=self.ssl_verify, proxies=self.proxies,timeout=timeout)
+            
+                if response.status_code != 200:
                 # Many API call failures result in an HTTP 400 status code (Bad Request)
                 # To understand the reason for the 400 error, specific API error codes can be 
                 # found here: https://api.stackoverflowteams.com/docs/error-handling
-                print(f"/{endpoint_url} API call failed with status code: {response.status_code}.")
-                print(response.text)
-                print(f"Failed request URL and params: {response.request.url}")
-                break
+                    print(f"/{endpoint_url} API call failed with status code: {response.status_code}.")
+                    print(response.text)
+                    print(f"Failed request URL and params: {response.request.url}")
+                    break
             
-            try:
                 items += response.json().get('items')
+            
+                if not response.json().get('has_more'):
+                    break
+
+                # If the endpoint gets overloaded, it will send a backoff request in the response
+                # Failure to backoff will result in a 502 error (throttle_violation)
+                # Rate limiting documentation: https://api.stackexchange.com/docs/throttle
+                if response.json().get('backoff'):
+                    backoff_time = response.json().get('backoff') + 1
+                    print(f"API backoff request received. Waiting {backoff_time} seconds...")
+                    time.sleep(backoff_time)
+
+                params['page'] += 1
+
+            #Exceptions for errors that might not provide a response code
+            except requests.exceptions.Timeout:
+                print(f"Request timed out after {timeout} seconds. Retrying...")
+                continue
             except requests.exceptions.JSONDecodeError:
                 print(f"Unexpected response from {endpoint_url}")
                 print(f"Expected JSON response, but received this instead: {response.text}")
                 raise SystemExit
-
-            if not response.json().get('has_more'):
+            except requests.exceptions.ConnectionError as e:
+                if isinstance(e.args[0], socket.error) and e.args[0].errno == 104:
+                    print("Connection was reset. Retrying...")
+                    continue
+                print(f"Connection error occured: {e}")
                 break
-
-            # If the endpoint gets overloaded, it will send a backoff request in the response
-            # Failure to backoff will result in a 502 error (throttle_violation)
-            # Rate limiting documentation: https://api.stackexchange.com/docs/throttle
-            if response.json().get('backoff'):
-                backoff_time = response.json().get('backoff') + 1
-                print(f"API backoff request received. Waiting {backoff_time} seconds...")
-                time.sleep(backoff_time)
-
-            params['page'] += 1
+            except requests.exceptions.RequestException as e:
+                print(f"Request failed: {e}")
+                break
 
         return items
   

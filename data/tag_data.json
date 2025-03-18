@@ -1,0 +1,2697 @@
+[
+    {
+        "id": 10,
+        "name": "wiki",
+        "description": "",
+        "postCount": 2,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2023-05-24T14:32:59.897",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/10",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "wiki",
+            "total_page_views": 9,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 1,
+            "unique_askers": 0,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 1,
+            "question_count": 0,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 2,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [],
+            "answerers": [],
+            "article_contributors": [
+                11
+            ],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 58,
+        "name": "untagged",
+        "description": "",
+        "postCount": 23,
+        "subjectMatterExpertCount": 1,
+        "watcherCount": 2,
+        "creationDate": "2023-12-10T04:00:00.23",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/58",
+        "smes": {
+            "users": [
+                {
+                    "id": 10,
+                    "accountId": 10,
+                    "name": "Moises Perez Garcia",
+                    "avatarUrl": "https://www.gravatar.com/avatar/f16d373e002fcb427fb6a1d3fb3b0c67?s=128&d=identicon&r=PG",
+                    "webUrl": "https://support-test-teams.stackenterprise.co/users/10/",
+                    "reputation": 184,
+                    "role": "Admin"
+                }
+            ],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "untagged",
+            "total_page_views": 246,
+            "tag_watchers": 2,
+            "total_smes": 1,
+            "median_time_to_first_answer_hours": 1122.18,
+            "median_time_to_first_response_hours": 1122.18,
+            "total_unique_contributors": 6,
+            "unique_askers": 4,
+            "unique_answerers": 4,
+            "unique_commenters": 2,
+            "unique_article_contributors": 2,
+            "question_count": 16,
+            "question_upvotes": 12,
+            "question_downvotes": 0,
+            "question_comments": 1,
+            "questions_no_answers": 7,
+            "questions_accepted_answer": 3,
+            "questions_self_answered": 6,
+            "answer_count": 15,
+            "sme_answers": 9,
+            "answer_upvotes": 1,
+            "answer_downvotes": 0,
+            "answer_comments": 1,
+            "article_count": 6,
+            "article_upvotes": 2,
+            "article_comments": 2
+        },
+        "contributors": {
+            "askers": [
+                10,
+                11,
+                7,
+                9
+            ],
+            "answerers": [
+                10,
+                1,
+                16,
+                9
+            ],
+            "article_contributors": [
+                1,
+                10
+            ],
+            "commenters": [
+                10,
+                1
+            ],
+            "individual_smes": [
+                10
+            ],
+            "group_smes": []
+        },
+        "answer_times": [
+            {
+                "https://support-test-teams.stackenterprise.co/questions/126": 9099.435
+            },
+            {
+                "https://support-test-teams.stackenterprise.co/questions/75": 1122.1805555555554
+            },
+            {
+                "https://support-test-teams.stackenterprise.co/questions/78": 810.0308333333334
+            }
+        ],
+        "response_times": [
+            {
+                "https://support-test-teams.stackenterprise.co/questions/126": 9099.435
+            },
+            {
+                "https://support-test-teams.stackenterprise.co/questions/75": 1122.1805555555554
+            },
+            {
+                "https://support-test-teams.stackenterprise.co/questions/78": 810.0308333333334
+            }
+        ],
+        "self_answered_questions": [
+            "https://support-test-teams.stackenterprise.co/questions/134",
+            "https://support-test-teams.stackenterprise.co/questions/69",
+            "https://support-test-teams.stackenterprise.co/questions/139",
+            "https://support-test-teams.stackenterprise.co/questions/136",
+            "https://support-test-teams.stackenterprise.co/questions/152",
+            "https://support-test-teams.stackenterprise.co/questions/92"
+        ]
+    },
+    {
+        "id": 67,
+        "name": "trial1",
+        "description": "",
+        "postCount": 0,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2024-03-01T21:18:35.167",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/67",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "trial1",
+            "total_page_views": 0,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 0,
+            "unique_askers": 0,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 0,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [],
+            "answerers": [],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 102,
+        "name": "tag-test-ryan",
+        "description": "",
+        "postCount": 2,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2025-03-13T16:05:33.173",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/102",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "tag-test-ryan",
+            "total_page_views": 9,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 1,
+            "unique_askers": 1,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 1,
+            "question_count": 1,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 1,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 1,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [
+                10
+            ],
+            "answerers": [],
+            "article_contributors": [
+                10
+            ],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 83,
+        "name": "tag",
+        "description": "",
+        "postCount": 1,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2024-09-25T11:43:07.973",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/83",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "tag",
+            "total_page_views": 6,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 1,
+            "unique_askers": 0,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 1,
+            "question_count": 0,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 1,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [],
+            "answerers": [],
+            "article_contributors": [
+                10
+            ],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 92,
+        "name": "synonym-test",
+        "description": "",
+        "postCount": 1,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2025-02-05T10:56:18.077",
+        "hasSynonyms": true,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/92",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "synonym-test",
+            "total_page_views": 28,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 2,
+            "unique_askers": 1,
+            "unique_answerers": 2,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 1,
+            "question_upvotes": 2,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 1,
+            "answer_count": 3,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [
+                10
+            ],
+            "answerers": [
+                10,
+                1
+            ],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": [
+            "https://support-test-teams.stackenterprise.co/questions/134"
+        ]
+    },
+    {
+        "id": 66,
+        "name": "string",
+        "description": "",
+        "postCount": 3,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2024-02-29T11:40:00.873",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/66",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "string",
+            "total_page_views": 32,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 1656.63,
+            "median_time_to_first_response_hours": 1656.63,
+            "total_unique_contributors": 2,
+            "unique_askers": 2,
+            "unique_answerers": 1,
+            "unique_commenters": 0,
+            "unique_article_contributors": 1,
+            "question_count": 2,
+            "question_upvotes": 1,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 1,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 1,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 1,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [
+                10,
+                -1
+            ],
+            "answerers": [
+                10
+            ],
+            "article_contributors": [
+                10
+            ],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [
+            {
+                "https://support-test-teams.stackenterprise.co/questions/150": 1656.6280555555556
+            }
+        ],
+        "response_times": [
+            {
+                "https://support-test-teams.stackenterprise.co/questions/150": 1656.6280555555556
+            }
+        ],
+        "self_answered_questions": []
+    },
+    {
+        "id": 18,
+        "name": "ssl-certificate",
+        "description": "",
+        "postCount": 2,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 1,
+        "creationDate": "2023-08-09T16:01:14.95",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/18",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "ssl-certificate",
+            "total_page_views": 5,
+            "tag_watchers": 1,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 1,
+            "unique_askers": 1,
+            "unique_answerers": 1,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 2,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 2,
+            "questions_self_answered": 2,
+            "answer_count": 2,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [
+                9
+            ],
+            "answerers": [
+                9
+            ],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": [
+            "https://support-test-teams.stackenterprise.co/questions/86",
+            "https://support-test-teams.stackenterprise.co/questions/82"
+        ]
+    },
+    {
+        "id": 29,
+        "name": "square-root",
+        "description": "",
+        "postCount": 4,
+        "subjectMatterExpertCount": 1,
+        "watcherCount": 0,
+        "creationDate": "2023-08-17T13:54:23.66",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/29",
+        "smes": {
+            "users": [
+                {
+                    "id": 10,
+                    "accountId": 10,
+                    "name": "Moises Perez Garcia",
+                    "avatarUrl": "https://www.gravatar.com/avatar/f16d373e002fcb427fb6a1d3fb3b0c67?s=128&d=identicon&r=PG",
+                    "webUrl": "https://support-test-teams.stackenterprise.co/users/10/",
+                    "reputation": 184,
+                    "role": "Admin"
+                }
+            ],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "square-root",
+            "total_page_views": 4,
+            "tag_watchers": 0,
+            "total_smes": 1,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 1,
+            "unique_askers": 0,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 1,
+            "question_count": 0,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 4,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [],
+            "answerers": [],
+            "article_contributors": [
+                15
+            ],
+            "commenters": [],
+            "individual_smes": [
+                10
+            ],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 86,
+        "name": "shell",
+        "description": "",
+        "postCount": 1,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 6,
+        "creationDate": "2025-01-10T12:03:31.56",
+        "hasSynonyms": true,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/86",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "shell",
+            "total_page_views": 3,
+            "tag_watchers": 6,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 1,
+            "unique_askers": 1,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 1,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 1,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [
+                10
+            ],
+            "answerers": [],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 90,
+        "name": "scripttest",
+        "description": "",
+        "postCount": 0,
+        "subjectMatterExpertCount": 2,
+        "watcherCount": 2,
+        "creationDate": "2025-01-24T11:31:58.493",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/90",
+        "smes": {
+            "users": [],
+            "userGroups": [
+                {
+                    "id": 1008,
+                    "name": "TestScriptAPI",
+                    "description": "Group of very very smart people",
+                    "users": [
+                        {
+                            "id": 10,
+                            "accountId": 10,
+                            "name": "Moises Perez Garcia",
+                            "avatarUrl": "https://www.gravatar.com/avatar/f16d373e002fcb427fb6a1d3fb3b0c67?s=128&d=identicon&r=PG",
+                            "webUrl": "https://support-test-teams.stackenterprise.co/users/10/",
+                            "reputation": 184,
+                            "role": "Admin"
+                        },
+                        {
+                            "id": 24,
+                            "accountId": 24,
+                            "name": "Madiha Khan",
+                            "avatarUrl": "https://support-test-teams.stackenterprise.co/Content/Img/user.svg",
+                            "webUrl": "https://support-test-teams.stackenterprise.co/users/24/",
+                            "reputation": 1,
+                            "role": "Admin"
+                        }
+                    ]
+                }
+            ]
+        },
+        "metrics": {
+            "tag_name": "scripttest",
+            "total_page_views": 0,
+            "tag_watchers": 2,
+            "total_smes": 2,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 0,
+            "unique_askers": 0,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 0,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [],
+            "answerers": [],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": [
+                10,
+                24
+            ]
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 84,
+        "name": "rabbit",
+        "description": "",
+        "postCount": 0,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2025-01-09T20:51:45.327",
+        "hasSynonyms": true,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/84",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "rabbit",
+            "total_page_views": 0,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 0,
+            "unique_askers": 0,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 0,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [],
+            "answerers": [],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 101,
+        "name": "pressrelease",
+        "description": "",
+        "postCount": 1,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2025-02-27T11:59:34.523",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/101",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "pressrelease",
+            "total_page_views": 3,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 1,
+            "unique_askers": 1,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 1,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 1,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [
+                24
+            ],
+            "answerers": [],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 61,
+        "name": "power-pages",
+        "description": "",
+        "postCount": 0,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2024-01-23T10:11:00.677",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/61",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "power-pages",
+            "total_page_views": 0,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 0,
+            "unique_askers": 0,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 0,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [],
+            "answerers": [],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 60,
+        "name": "powerpages",
+        "description": "",
+        "postCount": 0,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2024-01-23T10:10:09.98",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/60",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "powerpages",
+            "total_page_views": 0,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 0,
+            "unique_askers": 0,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 0,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [],
+            "answerers": [],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 88,
+        "name": "potatoes",
+        "description": "",
+        "postCount": 2,
+        "subjectMatterExpertCount": 1,
+        "watcherCount": 1,
+        "creationDate": "2025-01-15T19:46:58.617",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/88",
+        "smes": {
+            "users": [],
+            "userGroups": [
+                {
+                    "id": 1003,
+                    "name": "R-Lab Scientists",
+                    "description": "For people who are part of the R-Lab",
+                    "users": [
+                        {
+                            "id": 11,
+                            "accountId": 11,
+                            "name": "Grace Note",
+                            "avatarUrl": "https://support-test-teams.stackenterprise.co/images/a/c237e4dc-6a3c-4ef0-a66e-58735eafdf6c.png?s=128&g=1",
+                            "webUrl": "https://support-test-teams.stackenterprise.co/users/11/",
+                            "reputation": 32,
+                            "role": "Admin"
+                        }
+                    ]
+                }
+            ]
+        },
+        "metrics": {
+            "tag_name": "potatoes",
+            "total_page_views": 25,
+            "tag_watchers": 1,
+            "total_smes": 1,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 1,
+            "unique_askers": 1,
+            "unique_answerers": 1,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 2,
+            "question_upvotes": 2,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 1,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 1,
+            "answer_count": 1,
+            "sme_answers": 1,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [
+                11
+            ],
+            "answerers": [
+                11
+            ],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": [
+                11
+            ]
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": [
+            "https://support-test-teams.stackenterprise.co/questions/201"
+        ]
+    },
+    {
+        "id": 5,
+        "name": "policy",
+        "description": "",
+        "postCount": 1,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2023-05-09T15:14:18.44",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/5",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "policy",
+            "total_page_views": 0,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 0,
+            "unique_askers": 0,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 0,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [],
+            "answerers": [],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 25,
+        "name": "plusone",
+        "description": "Our primary product line. Please include release information when posting questions about PlusOne",
+        "postCount": 22,
+        "subjectMatterExpertCount": 4,
+        "watcherCount": 5,
+        "creationDate": "2023-08-15T13:13:34.18",
+        "hasSynonyms": true,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/25",
+        "smes": {
+            "users": [
+                {
+                    "id": 10,
+                    "accountId": 10,
+                    "name": "Moises Perez Garcia",
+                    "avatarUrl": "https://www.gravatar.com/avatar/f16d373e002fcb427fb6a1d3fb3b0c67?s=128&d=identicon&r=PG",
+                    "webUrl": "https://support-test-teams.stackenterprise.co/users/10/",
+                    "reputation": 184,
+                    "role": "Admin"
+                },
+                {
+                    "id": 24,
+                    "accountId": 24,
+                    "name": "Madiha Khan",
+                    "avatarUrl": "https://support-test-teams.stackenterprise.co/Content/Img/user.svg",
+                    "webUrl": "https://support-test-teams.stackenterprise.co/users/24/",
+                    "reputation": 1,
+                    "role": "Admin"
+                }
+            ],
+            "userGroups": [
+                {
+                    "id": 1001,
+                    "name": "test group 1",
+                    "description": null,
+                    "users": [
+                        {
+                            "id": 4,
+                            "accountId": 4,
+                            "name": "Jamie Lowery",
+                            "avatarUrl": "https://www.gravatar.com/avatar/01cf829f946e65dda05821043f40537f?s=128&d=identicon&r=PG",
+                            "webUrl": "https://support-test-teams.stackenterprise.co/users/4/",
+                            "reputation": 1,
+                            "role": "Admin"
+                        },
+                        {
+                            "id": 7,
+                            "accountId": 7,
+                            "name": "Jordan ",
+                            "avatarUrl": "https://www.gravatar.com/avatar/8bcd6a342be2eeb776fb4954fd73d1ca?s=128&d=identicon&r=PG",
+                            "webUrl": "https://support-test-teams.stackenterprise.co/users/7/",
+                            "reputation": 21,
+                            "role": "Admin"
+                        }
+                    ]
+                }
+            ]
+        },
+        "metrics": {
+            "tag_name": "plusone",
+            "total_page_views": 102,
+            "tag_watchers": 5,
+            "total_smes": 4,
+            "median_time_to_first_answer_hours": 6212.75,
+            "median_time_to_first_response_hours": 6212.75,
+            "total_unique_contributors": 5,
+            "unique_askers": 3,
+            "unique_answerers": 2,
+            "unique_commenters": 1,
+            "unique_article_contributors": 2,
+            "question_count": 8,
+            "question_upvotes": 6,
+            "question_downvotes": 0,
+            "question_comments": 1,
+            "questions_no_answers": 6,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 2,
+            "sme_answers": 1,
+            "answer_upvotes": 4,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 14,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [
+                10,
+                7,
+                1
+            ],
+            "answerers": [
+                16,
+                10
+            ],
+            "article_contributors": [
+                10,
+                15
+            ],
+            "commenters": [
+                10
+            ],
+            "individual_smes": [
+                10,
+                24
+            ],
+            "group_smes": [
+                4,
+                7
+            ]
+        },
+        "answer_times": [
+            {
+                "https://support-test-teams.stackenterprise.co/questions/127": 9099.193055555555
+            },
+            {
+                "https://support-test-teams.stackenterprise.co/questions/77": 3326.3108333333334
+            }
+        ],
+        "response_times": [
+            {
+                "https://support-test-teams.stackenterprise.co/questions/127": 9099.193055555555
+            },
+            {
+                "https://support-test-teams.stackenterprise.co/questions/77": 3326.3108333333334
+            }
+        ],
+        "self_answered_questions": []
+    },
+    {
+        "id": 28,
+        "name": "pi",
+        "description": "",
+        "postCount": 4,
+        "subjectMatterExpertCount": 1,
+        "watcherCount": 3,
+        "creationDate": "2023-08-17T13:54:23.66",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/28",
+        "smes": {
+            "users": [],
+            "userGroups": [
+                {
+                    "id": 1003,
+                    "name": "R-Lab Scientists",
+                    "description": "For people who are part of the R-Lab",
+                    "users": [
+                        {
+                            "id": 11,
+                            "accountId": 11,
+                            "name": "Grace Note",
+                            "avatarUrl": "https://support-test-teams.stackenterprise.co/images/a/c237e4dc-6a3c-4ef0-a66e-58735eafdf6c.png?s=128&g=1",
+                            "webUrl": "https://support-test-teams.stackenterprise.co/users/11/",
+                            "reputation": 32,
+                            "role": "Admin"
+                        }
+                    ]
+                }
+            ]
+        },
+        "metrics": {
+            "tag_name": "pi",
+            "total_page_views": 4,
+            "tag_watchers": 3,
+            "total_smes": 1,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 1,
+            "unique_askers": 0,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 1,
+            "question_count": 0,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 4,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [],
+            "answerers": [],
+            "article_contributors": [
+                15
+            ],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": [
+                11
+            ]
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 87,
+        "name": "patros",
+        "description": "",
+        "postCount": 1,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2025-01-15T19:46:58.617",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/87",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "patros",
+            "total_page_views": 8,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 1,
+            "unique_askers": 1,
+            "unique_answerers": 1,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 1,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 1,
+            "answer_count": 1,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [
+                11
+            ],
+            "answerers": [
+                11
+            ],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": [
+            "https://support-test-teams.stackenterprise.co/questions/201"
+        ]
+    },
+    {
+        "id": 82,
+        "name": "overflowai-generated",
+        "description": "",
+        "postCount": 4,
+        "subjectMatterExpertCount": 1,
+        "watcherCount": 1,
+        "creationDate": "2024-08-27T11:23:55.623",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/82",
+        "smes": {
+            "users": [
+                {
+                    "id": 10,
+                    "accountId": 10,
+                    "name": "Moises Perez Garcia",
+                    "avatarUrl": "https://www.gravatar.com/avatar/f16d373e002fcb427fb6a1d3fb3b0c67?s=128&d=identicon&r=PG",
+                    "webUrl": "https://support-test-teams.stackenterprise.co/users/10/",
+                    "reputation": 184,
+                    "role": "Admin"
+                }
+            ],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "overflowai-generated",
+            "total_page_views": 18,
+            "tag_watchers": 1,
+            "total_smes": 1,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 3,
+            "unique_askers": 3,
+            "unique_answerers": 3,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 4,
+            "question_upvotes": 0,
+            "question_downvotes": 1,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 4,
+            "answer_count": 4,
+            "sme_answers": 2,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [
+                10,
+                "user23 (DELETED)",
+                1
+            ],
+            "answerers": [
+                10,
+                "user23 (DELETED)",
+                1
+            ],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [
+                10
+            ],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": [
+            "https://support-test-teams.stackenterprise.co/questions/197",
+            "https://support-test-teams.stackenterprise.co/questions/180",
+            "https://support-test-teams.stackenterprise.co/questions/178",
+            "https://support-test-teams.stackenterprise.co/questions/199"
+        ]
+    },
+    {
+        "id": 51,
+        "name": "notag",
+        "description": "",
+        "postCount": 2,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2023-09-25T18:05:12.717",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/51",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "notag",
+            "total_page_views": 7,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 1,
+            "unique_askers": 0,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 1,
+            "question_count": 0,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 2,
+            "article_upvotes": 0,
+            "article_comments": 1
+        },
+        "contributors": {
+            "askers": [],
+            "answerers": [],
+            "article_contributors": [
+                10
+            ],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 97,
+        "name": "multiagents",
+        "description": "",
+        "postCount": 5,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2025-02-06T18:56:00.067",
+        "hasSynonyms": true,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/97",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "multiagents",
+            "total_page_views": 19,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 1,
+            "unique_askers": 1,
+            "unique_answerers": 1,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 5,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 3,
+            "questions_accepted_answer": 2,
+            "questions_self_answered": 2,
+            "answer_count": 2,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [
+                1
+            ],
+            "answerers": [
+                1
+            ],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": [
+            "https://support-test-teams.stackenterprise.co/questions/174",
+            "https://support-test-teams.stackenterprise.co/questions/172"
+        ]
+    },
+    {
+        "id": 96,
+        "name": "multi-agent",
+        "description": "",
+        "postCount": 0,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2025-02-06T18:55:52.273",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/96",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "multi-agent",
+            "total_page_views": 0,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 0,
+            "unique_askers": 0,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 0,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [],
+            "answerers": [],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 75,
+        "name": "ml-quality",
+        "description": "",
+        "postCount": 0,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2024-07-16T09:06:43.35",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/75",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "ml-quality",
+            "total_page_views": 0,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 0,
+            "unique_askers": 0,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 0,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [],
+            "answerers": [],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 74,
+        "name": "mlquality",
+        "description": "",
+        "postCount": 1,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2024-07-16T09:06:31.147",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/74",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "mlquality",
+            "total_page_views": 24,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 3,
+            "unique_askers": 1,
+            "unique_answerers": 3,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 1,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 1,
+            "answer_count": 3,
+            "sme_answers": 0,
+            "answer_upvotes": 1,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [
+                1
+            ],
+            "answerers": [
+                1,
+                16,
+                11
+            ],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": [
+            "https://support-test-teams.stackenterprise.co/questions/164"
+        ]
+    },
+    {
+        "id": 21,
+        "name": "linux",
+        "description": "",
+        "postCount": 3,
+        "subjectMatterExpertCount": 1,
+        "watcherCount": 1,
+        "creationDate": "2023-08-09T16:03:45.177",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/21",
+        "smes": {
+            "users": [
+                {
+                    "id": 1,
+                    "accountId": 1,
+                    "name": "Ryan Lindeman",
+                    "avatarUrl": "https://support-test-teams.stackenterprise.co/images/a/1e79dc41-3ca7-4b65-a089-137256ace309.png",
+                    "webUrl": "https://support-test-teams.stackenterprise.co/users/1/",
+                    "reputation": 66,
+                    "role": "Admin"
+                }
+            ],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "linux",
+            "total_page_views": 27,
+            "tag_watchers": 1,
+            "total_smes": 1,
+            "median_time_to_first_answer_hours": 2246.89,
+            "median_time_to_first_response_hours": 2246.89,
+            "total_unique_contributors": 6,
+            "unique_askers": 2,
+            "unique_answerers": 4,
+            "unique_commenters": 1,
+            "unique_article_contributors": 1,
+            "question_count": 2,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 1,
+            "questions_self_answered": 1,
+            "answer_count": 5,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 1,
+            "article_count": 1,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [
+                7,
+                9
+            ],
+            "answerers": [
+                10,
+                11,
+                -1,
+                9
+            ],
+            "article_contributors": [
+                15
+            ],
+            "commenters": [
+                10
+            ],
+            "individual_smes": [
+                1
+            ],
+            "group_smes": []
+        },
+        "answer_times": [
+            {
+                "https://support-test-teams.stackenterprise.co/questions/113": 2246.8908333333334
+            }
+        ],
+        "response_times": [
+            {
+                "https://support-test-teams.stackenterprise.co/questions/113": 2246.8908333333334
+            }
+        ],
+        "self_answered_questions": [
+            "https://support-test-teams.stackenterprise.co/questions/88"
+        ]
+    },
+    {
+        "id": 2,
+        "name": "knowledge-article",
+        "description": "",
+        "postCount": 23,
+        "subjectMatterExpertCount": 1,
+        "watcherCount": 1,
+        "creationDate": "2023-05-09T15:14:18.44",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/2",
+        "smes": {
+            "users": [
+                {
+                    "id": 6,
+                    "accountId": 6,
+                    "name": "animuson",
+                    "avatarUrl": "https://www.gravatar.com/avatar/9cd544db32ae72b16f8e3fdc7ca4f336?s=128&d=identicon&r=PG",
+                    "webUrl": "https://support-test-teams.stackenterprise.co/users/6/",
+                    "reputation": 2,
+                    "role": "Admin"
+                }
+            ],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "knowledge-article",
+            "total_page_views": 0,
+            "tag_watchers": 1,
+            "total_smes": 1,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 0,
+            "unique_askers": 0,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 0,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [],
+            "answerers": [],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [
+                6
+            ],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 95,
+        "name": "jenkins-prisma",
+        "description": "",
+        "postCount": 2,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2025-02-05T11:08:35.563",
+        "hasSynonyms": true,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/95",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "jenkins-prisma",
+            "total_page_views": 16,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 2,
+            "unique_askers": 1,
+            "unique_answerers": 2,
+            "unique_commenters": 1,
+            "unique_article_contributors": 0,
+            "question_count": 2,
+            "question_upvotes": 2,
+            "question_downvotes": 0,
+            "question_comments": 1,
+            "questions_no_answers": 1,
+            "questions_accepted_answer": 1,
+            "questions_self_answered": 1,
+            "answer_count": 2,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [
+                10
+            ],
+            "answerers": [
+                10,
+                1
+            ],
+            "article_contributors": [],
+            "commenters": [
+                10
+            ],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": [
+            "https://support-test-teams.stackenterprise.co/questions/132"
+        ]
+    },
+    {
+        "id": 4,
+        "name": "how-to-guide",
+        "description": "",
+        "postCount": 1,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2023-05-09T15:14:18.44",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/4",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "how-to-guide",
+            "total_page_views": 0,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 0,
+            "unique_askers": 0,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 0,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [],
+            "answerers": [],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 91,
+        "name": "finaltestapi",
+        "description": "",
+        "postCount": 0,
+        "subjectMatterExpertCount": 1,
+        "watcherCount": 2,
+        "creationDate": "2025-01-24T11:42:34.693",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/91",
+        "smes": {
+            "users": [],
+            "userGroups": [
+                {
+                    "id": 1009,
+                    "name": "FinalTestAPI",
+                    "description": "Group of very very very smart people",
+                    "users": [
+                        {
+                            "id": 24,
+                            "accountId": 24,
+                            "name": "Madiha Khan",
+                            "avatarUrl": "https://support-test-teams.stackenterprise.co/Content/Img/user.svg",
+                            "webUrl": "https://support-test-teams.stackenterprise.co/users/24/",
+                            "reputation": 1,
+                            "role": "Admin"
+                        }
+                    ]
+                }
+            ]
+        },
+        "metrics": {
+            "tag_name": "finaltestapi",
+            "total_page_views": 0,
+            "tag_watchers": 2,
+            "total_smes": 1,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 0,
+            "unique_askers": 0,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 0,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [],
+            "answerers": [],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": [
+                24
+            ]
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 20,
+        "name": "dns",
+        "description": "",
+        "postCount": 2,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2023-08-09T16:02:22.533",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/20",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "dns",
+            "total_page_views": 6,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 2,
+            "unique_askers": 1,
+            "unique_answerers": 1,
+            "unique_commenters": 0,
+            "unique_article_contributors": 1,
+            "question_count": 1,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 1,
+            "questions_self_answered": 1,
+            "answer_count": 1,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 1,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [
+                9
+            ],
+            "answerers": [
+                9
+            ],
+            "article_contributors": [
+                15
+            ],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": [
+            "https://support-test-teams.stackenterprise.co/questions/84"
+        ]
+    },
+    {
+        "id": 57,
+        "name": "credible",
+        "description": "",
+        "postCount": 0,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2023-12-08T11:48:57.837",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/57",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "credible",
+            "total_page_views": 0,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 0,
+            "unique_askers": 0,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 0,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [],
+            "answerers": [],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 56,
+        "name": "cr",
+        "description": "",
+        "postCount": 2,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2023-12-08T11:48:57.837",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/56",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "cr",
+            "total_page_views": 16,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 2,
+            "unique_askers": 1,
+            "unique_answerers": 2,
+            "unique_commenters": 1,
+            "unique_article_contributors": 0,
+            "question_count": 2,
+            "question_upvotes": 2,
+            "question_downvotes": 0,
+            "question_comments": 1,
+            "questions_no_answers": 1,
+            "questions_accepted_answer": 1,
+            "questions_self_answered": 1,
+            "answer_count": 2,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [
+                10
+            ],
+            "answerers": [
+                10,
+                1
+            ],
+            "article_contributors": [],
+            "commenters": [
+                10
+            ],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": [
+            "https://support-test-teams.stackenterprise.co/questions/132"
+        ]
+    },
+    {
+        "id": 24,
+        "name": "c++",
+        "description": "",
+        "postCount": 3,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2023-08-09T16:20:24.483",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/24",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "c++",
+            "total_page_views": 29,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 3,
+            "unique_askers": 1,
+            "unique_answerers": 1,
+            "unique_commenters": 1,
+            "unique_article_contributors": 1,
+            "question_count": 2,
+            "question_upvotes": 1,
+            "question_downvotes": 1,
+            "question_comments": 6,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 2,
+            "questions_self_answered": 2,
+            "answer_count": 2,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 2,
+            "answer_comments": 0,
+            "article_count": 1,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [
+                9
+            ],
+            "answerers": [
+                9
+            ],
+            "article_contributors": [
+                15
+            ],
+            "commenters": [
+                10
+            ],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": [
+            "https://support-test-teams.stackenterprise.co/questions/96",
+            "https://support-test-teams.stackenterprise.co/questions/94"
+        ]
+    },
+    {
+        "id": 22,
+        "name": "c",
+        "description": "",
+        "postCount": 2,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2023-08-09T16:18:36.983",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/22",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "c",
+            "total_page_views": 26,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 2,
+            "unique_askers": 1,
+            "unique_answerers": 1,
+            "unique_commenters": 1,
+            "unique_article_contributors": 0,
+            "question_count": 2,
+            "question_upvotes": 0,
+            "question_downvotes": 1,
+            "question_comments": 6,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 2,
+            "questions_self_answered": 2,
+            "answer_count": 2,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 2,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [
+                9
+            ],
+            "answerers": [
+                9
+            ],
+            "article_contributors": [],
+            "commenters": [
+                10
+            ],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": [
+            "https://support-test-teams.stackenterprise.co/questions/96",
+            "https://support-test-teams.stackenterprise.co/questions/90"
+        ]
+    },
+    {
+        "id": 85,
+        "name": "bunny",
+        "description": "",
+        "postCount": 1,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2025-01-09T20:57:06.9",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/85",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "bunny",
+            "total_page_views": 3,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 1,
+            "unique_askers": 1,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 1,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 1,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [
+                4
+            ],
+            "answerers": [],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 100,
+        "name": "backstage",
+        "description": "",
+        "postCount": 1,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2025-02-26T15:58:32.23",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/100",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "backstage",
+            "total_page_views": 3,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 1,
+            "unique_askers": 1,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 1,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 1,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [
+                10
+            ],
+            "answerers": [],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 9,
+        "name": "as-ecommerce",
+        "description": "",
+        "postCount": 2,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2023-05-24T14:32:59.897",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/9",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "as-ecommerce",
+            "total_page_views": 9,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 1,
+            "unique_askers": 0,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 1,
+            "question_count": 0,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 2,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [],
+            "answerers": [],
+            "article_contributors": [
+                11
+            ],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 16,
+        "name": "api",
+        "description": "",
+        "postCount": 0,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2023-06-29T18:13:18.527",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/16",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "api",
+            "total_page_views": 0,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 0,
+            "unique_askers": 0,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 0,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [],
+            "answerers": [],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 3,
+        "name": "announcement",
+        "description": "",
+        "postCount": 2,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2023-05-09T15:14:18.44",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/3",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "announcement",
+            "total_page_views": 0,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 0,
+            "unique_askers": 0,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 0,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [],
+            "answerers": [],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    },
+    {
+        "id": 98,
+        "name": "agents",
+        "description": "",
+        "postCount": 0,
+        "subjectMatterExpertCount": 0,
+        "watcherCount": 0,
+        "creationDate": "2025-02-06T18:56:03.663",
+        "hasSynonyms": false,
+        "webUrl": "https://support-test-teams.stackenterprise.co/questions/tagged/98",
+        "smes": {
+            "users": [],
+            "userGroups": []
+        },
+        "metrics": {
+            "tag_name": "agents",
+            "total_page_views": 0,
+            "tag_watchers": 0,
+            "total_smes": 0,
+            "median_time_to_first_answer_hours": 0,
+            "median_time_to_first_response_hours": 0,
+            "total_unique_contributors": 0,
+            "unique_askers": 0,
+            "unique_answerers": 0,
+            "unique_commenters": 0,
+            "unique_article_contributors": 0,
+            "question_count": 0,
+            "question_upvotes": 0,
+            "question_downvotes": 0,
+            "question_comments": 0,
+            "questions_no_answers": 0,
+            "questions_accepted_answer": 0,
+            "questions_self_answered": 0,
+            "answer_count": 0,
+            "sme_answers": 0,
+            "answer_upvotes": 0,
+            "answer_downvotes": 0,
+            "answer_comments": 0,
+            "article_count": 0,
+            "article_upvotes": 0,
+            "article_comments": 0
+        },
+        "contributors": {
+            "askers": [],
+            "answerers": [],
+            "article_contributors": [],
+            "commenters": [],
+            "individual_smes": [],
+            "group_smes": []
+        },
+        "answer_times": [],
+        "response_times": [],
+        "self_answered_questions": []
+    }
+]
