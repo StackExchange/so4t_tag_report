@@ -22,7 +22,11 @@ class V2Client(object):
             self.team_slug = url.split("https://stackoverflowteams.com/c/")[1]
             self.token = token
             self.api_key = key
-            self.headers = {'X-API-Access-Token': self.token}
+            self.headers = {
+            # Updated User-Agent
+            'X-API-Access-Token': self.token,
+            'User-Agent': 'so4t_tag_report/1.0 (http://your-app-url.com; your-contact@email.com)'
+            } 
             if not self.token:
                 print("Missing required argument. Please provide an API token.")
                 raise SystemExit
@@ -32,7 +36,11 @@ class V2Client(object):
             self.team_slug = None
             self.token = token
             self.api_key = key
-            self.headers = {'X-API-Key': self.api_key}
+            self.headers = {
+            #Updated User-Agent
+            'X-API-Key': self.api_key,
+            'User-Agent': 'so4t_tag_report/1.0 (http://your-app-url.com; your-contact@email.com)'
+            } 
             if not self.api_key:
                 print("Missing required argument. Please provide an API key.")
                 raise SystemExit
