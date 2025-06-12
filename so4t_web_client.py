@@ -25,6 +25,10 @@ class WebClient(object):
     def create_session(self):
 
         s = requests.Session()
+        #Updated User-Agent
+        s.headers.update({
+            'User-Agent': 'so4t_tag_report/1.0 (http://your-app-url.com; your-contact@email.com)'
+        })
 
         # Configure Chrome driver
         options = webdriver.ChromeOptions()
