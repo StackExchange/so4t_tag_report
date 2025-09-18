@@ -1,0 +1,147 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+dist/
+eggs/
+*.egg-info/
+*.egg
+parts/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+*.manifest
+*.spec
+
+# Installer artifacts
+*.egg-info/
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+env.bak/
+venv.bak/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Icon must end with two \r
+Icon
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.code-workspace
+.history/
+
+# Logs and runtime files
+*.log
+*.out
+*.pid
+*.seed
+*.pid.lock
+
+# Certificates and secrets
+*.pem
+*.key
+credentials.json
+secrets.json
+
+# Notebook checkpoints
+.ipynb_checkpoints
+
+# Local project files
+local_settings.py
+*.local
+
+# CSVs and generated reports that shouldn't be committed
+*.csv
+data/
+*.json
+*.xlsx
+
+# Explicit generated report files (listed by filename)
+2025-03-17_tag_metrics.csv
+2025-03-18_tag_metrics.csv
+
+# Ignore compiled C/C++ artifacts
+*.o
+*.a
+*.lib
+
+# Temporary files
+*~
+*.swp
+.lock
+
+# System-specific
+.DS_Store
+
+# End of .gitignore
+
