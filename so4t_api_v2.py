@@ -6,7 +6,7 @@ import json
 import requests
 
 # Local libraries
-from so4t_request_validate import *
+import so4t_request_validate
 
 
 class V2Client(object):
@@ -173,11 +173,10 @@ class V2Client(object):
                 print(f"Getting data from {endpoint_url}")
             
             try:
-                global timeout
                 response = requests.get(endpoint_url, headers=self.headers, params=params, 
-                                    verify=self.ssl_verify, proxies=self.proxies, timeout=timeout)
+                                    verify=self.ssl_verify, proxies=self.proxies, timeout=so4t_request_validate.timeout)
             except Exception as ex:
-                handle_except(ex)
+                so4t_request_validate.handle_except(ex)
                 continue
             
             if response.status_code != 200:
@@ -209,8 +208,7 @@ class V2Client(object):
                 break
 
             params['page'] += 1
-            global retry_count
-            retry_count = 0
+            so4t_request_validate.retry_count = 0
 
         return items
   

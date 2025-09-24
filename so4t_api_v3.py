@@ -5,7 +5,7 @@ import json
 import requests
 
 # Local libraries
-from so4t_request_validate import *
+import so4t_request_validate
 
 
 class V3Client(object):
@@ -122,15 +122,14 @@ class V3Client(object):
         data = []
         while True:
             try:
-                global timeout
                 if method == 'get':
                     response = get_response(endpoint_url, headers=self.headers, params=params, 
-                                            verify=self.ssl_verify, proxies=self.proxies, timeout=timeout)
+                                            verify=self.ssl_verify, proxies=self.proxies, timeout=so4t_request_validate.timeout)
                 else:
                     response = get_response(endpoint_url, headers=self.headers, json=params, 
-                                            verify=self.ssl_verify, proxies=self.proxies, timeout=timeout)
+                                            verify=self.ssl_verify, proxies=self.proxies, timeout=so4t_request_validate.timeout)
             except Exception as ex:
-                handle_except(ex)
+                so4t_request_validate.handle_except(ex)
                 continue
 
             if response.status_code not in [200, 201, 204]:
@@ -150,6 +149,7 @@ class V3Client(object):
                 if params['page'] == json_data['totalPages']:
                     break
                 params['page'] += 1
+                so4t_request_validate.retry_count = 0
             else:
                 print(f"API request successfully sent to {endpoint_url}")
                 data = json_data
