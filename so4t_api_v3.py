@@ -131,6 +131,7 @@ class V3Client(object):
                                             verify=self.ssl_verify, proxies=self.proxies, timeout=timeout)
             except Exception as ex:
                 handle_except(ex)
+                continue
 
             if response.status_code not in [200, 201, 204]:
                 print(f"API call to {endpoint_url} failed with status code {response.status_code}")

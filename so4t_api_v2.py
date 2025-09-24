@@ -173,10 +173,12 @@ class V2Client(object):
                 print(f"Getting data from {endpoint_url}")
             
             try:
+                global timeout
                 response = requests.get(endpoint_url, headers=self.headers, params=params, 
                                     verify=self.ssl_verify, proxies=self.proxies, timeout=timeout)
             except Exception as ex:
                 handle_except(ex)
+                continue
             
             if response.status_code != 200:
             # Many API call failures result in an HTTP 400 status code (Bad Request)
