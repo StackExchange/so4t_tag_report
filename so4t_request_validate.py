@@ -24,6 +24,8 @@ def handle_except(ex):
             
             if conn_err:
                 message = f"Connection was unexpectedly reset."
+            elif "Read timed out" in str(ex):
+                message = f"Reading response timed out after {timeout} seconds."
             else:
                 print(f"Unexpected connection error occurred: {ex}")
                 raise SystemExit
