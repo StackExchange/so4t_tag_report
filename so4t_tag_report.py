@@ -636,9 +636,14 @@ def export_to_csv(data_name, data):
 
     date = time.strftime("%Y-%m-%d")
     file_name = f"{date}_{data_name}.csv"
+    directory = 'csv'
+
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    file_path = os.path.join(directory, file_name)
 
     csv_header = [header.replace('_', ' ').title() for header in list(data[0].keys())]
-    with open(file_name, 'w', encoding='UTF8', newline='') as f:
+    with open(file_path, 'w', encoding='UTF8', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(csv_header)
         for tag_data in data:

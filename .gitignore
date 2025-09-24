@@ -5,9 +5,5 @@ __pycache__/
 
 # data directory (and its contents)
 data/
-
-# Explicit generated report files (listed by filename)
-2025-03-17_tag_metrics.csv
-2025-03-18_tag_metrics.csv
-
+csv/
 
