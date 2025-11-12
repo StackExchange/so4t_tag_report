@@ -19,7 +19,7 @@ class V2Client(object):
             raise SystemExit
         
         # Establish the class variables based on which product is being used
-        if "stackoverflowteams.com" in url: # Stack Overflow Business or Basic
+        if "stackoverflowteams.com" in url: # Stack Internal (Business) or Basic
             self.soe = False
             self.api_url = "https://api.stackoverflowteams.com/2.3"
             self.team_slug = url.split("https://stackoverflowteams.com/c/")[1]
@@ -33,7 +33,7 @@ class V2Client(object):
             if not self.token:
                 print("Missing required argument. Please provide an API token.")
                 raise SystemExit
-        else: # Stack Overflow Enterprise
+        else: # Stack Internal (Enterprise)
             self.soe = True
             self.api_url = url + "/api/2.3"
             self.team_slug = None

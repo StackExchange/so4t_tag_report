@@ -1,5 +1,5 @@
 '''
-This Python script is a working proof of concept example of using Stack Overflow APIs for a Tag Report. 
+This Python script is a working proof of concept example of using Stack Internal APIs for a Tag Report. 
 If you run into difficulties, please leave feedback in the Github Issues.
 '''
 
@@ -53,22 +53,22 @@ def get_args():
     parser = argparse.ArgumentParser(
         prog='so4t_tag_report.py',
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        description='Uses the Stack Overflow for Teams API to create \
+        description='Uses the Stack Internal API to create \
         a CSV report with performance metrics for each tag.',
-        epilog = 'Example for Stack Overflow Business: \n'
+        epilog = 'Example for Stack Internal (Business): \n'
                 'python3 so4t_tag_report.py --url "https://stackoverflowteams.com/c/TEAM-NAME" '
                 '--token "YOUR_TOKEN" \n\n'
-                'Example for Stack Overflow Enterprise: \n'
+                'Example for Stack Internal (Enterprise): \n'
                 'python3 so4t_tag_report.py --url "https://SUBDOMAIN.stackenterprise.co" '
                 '--key "YOUR_KEY" --token "YOUR_TOKEN"\n\n')
     
     parser.add_argument('--url', 
                         type=str,
-                        help='Base URL for your Stack Overflow for Teams instance. '
+                        help='Base URL for your Stack Internal instance. '
                         'Required if --no-api is not used')
     parser.add_argument('--token',
                         type=str,
-                        help='API token for your Stack Overflow for Teams instance. '
+                        help='API token for your Stack Internal instance. '
                         'Required if --no-api is not used')
     parser.add_argument('--key',
                         type=str,
@@ -105,7 +105,7 @@ def data_collector(args):
             if web_client.base_url != args.url or not web_client.test_session():
                 raise FileNotFoundError # force creation of new session
         except FileNotFoundError:
-            print('Opening a Chrome window to authenticate Stack Overflow for Teams...')
+            print('Opening a Chrome window to authenticate Stack Internal...')
             web_client = WebClient(args.url)
             with open(session_file, 'wb') as f:
                 pickle.dump(web_client, f)
@@ -141,7 +141,7 @@ def get_questions_answers_comments(v2client):
     # all answers and comments for each question. This is more efficient than making
     # separate API calls for answers and comments.
     # Filter documentation: https://api.stackexchange.com/docs/filters
-    if v2client.soe: # Stack Overflow Enterprise requires the generation of a custom filter
+    if v2client.soe: # Stack Internal (Enterprise) requires the generation of a custom filter
         filter_attributes = [
             "answer.body",
             "answer.body_markdown",
@@ -168,7 +168,7 @@ def get_questions_answers_comments(v2client):
             "question.up_vote_count"
         ]
         filter_string = v2client.create_filter(filter_attributes)
-    else: # Stack Overflow Business or Basic
+    else: # Stack Internal Business or Basic
         filter_string = '!X9DEEiFwy0OeSWoJzb.QMqab2wPSk.X2opZDa2L'
     questions = v2client.get_all_questions(filter_string)
 
@@ -189,7 +189,7 @@ def get_articles(v2client):
             "comment.link"
         ]
         filter_string = v2client.create_filter(filter_attributes)
-    else: # Stack Overflow Business or Basic
+    else: # Stack Internal Business or Basic
         filter_string = '!*Mg4Pjg9LXr9d_(v'
 
     articles = v2client.get_all_articles(filter_string)
@@ -611,7 +611,7 @@ def add_user_to_list(user_id, user_list):
     the list.
 
     Args:
-        user_id (int): the unique user ID of a particular user in Stack Overflow
+        user_id (int): the unique user ID of a particular user in Stack Internal
         user_list (list): current user list
 
     Returns:
