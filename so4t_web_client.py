@@ -12,9 +12,9 @@ class WebClient(object):
     
     def __init__(self, url):
     
-        if "stackoverflowteams.com" in url: # Stack Overflow Business or Basic
+        if "stackoverflowteams.com" in url: # Stack Internal Business or Basic
             self.soe = False
-        else: # Stack Overflow Enterprise
+        else: # Stack Internal (Enterprise)
             self.soe = True
         
         self.base_url = url
@@ -111,7 +111,7 @@ class WebClient(object):
 
     def get_communities(self):
         """
-        This function gets all communities on the Stack Overflow for Teams instance
+        This function gets all communities on the Stack Internal instance
         Returns:
             communities: list of dictionaries, where each dictionary is a community
         
@@ -218,7 +218,7 @@ class WebClient(object):
     def get_user_watched_tags(self, users):
         """
         This function goes to the watched tags page of each user and gets their watched tags
-        It requires Stack Overflow Enterprise and admin permissions, both of which are checked for
+        It requires Stack Internal (Enterprise) and admin permissions, both of which are checked for
 
         Args:
             users: list of user dictionaries obtained from the /users API endpoint
@@ -227,9 +227,9 @@ class WebClient(object):
             users: list of user dictionaries with 'watched_tags' key added
         """
 
-        if not self.soe: # check if using Stack Overflow Enterprise
+        if not self.soe: # check if using Stack Internal (Enterprise)
             print('Not able to obtain user watched tags. This is only available on '
-                  'Stack Overflow Enterprise.')
+                  'Stack Internal (Enterprise).')
             return users
         
         if not self.admin: # check if user has admin permissions
@@ -259,7 +259,7 @@ class WebClient(object):
         """
         This function goes to the account page of each user and gets their login history and
         # presents it as a list of timestamps
-        It requires Stack Overflow Enterprise and admin permissions, both of which are checked for
+        It requires Stack Internal (Enterprise) and admin permissions, both of which are checked for
 
         Args:
             users: list of user dictionaries obtained from the /users API endpoint
@@ -268,9 +268,9 @@ class WebClient(object):
             users: list of user dictionaries with 'login_history' key added
         """
 
-        if not self.soe: # check if using Stack Overflow Enterprise
+        if not self.soe: # check if using Stack Internal (Enterprise)
             print('Not able to obtain user login history. This is only available on '
-                  'Stack Overflow Enterprise.')
+                  'Stack Internal (Enterprise).')
             return users
         
         if not self.admin: # check if user has admin permissions
@@ -306,7 +306,7 @@ class WebClient(object):
 
     def get_webhooks(self, communities=None):
         """
-        This function gets all webhooks configured for Stack Overflow for Teams instance
+        This function gets all webhooks configured for Stack Internal instance
         It requires admin permissions, which is checked for
         The scraped data requires a bit of processing to get it into a usable format, which has
         been split off into a separate process_webhooks function
@@ -327,7 +327,7 @@ class WebClient(object):
             return None
         
         webhooks = []
-        if self.soe: # Stack Overflow Enterprise
+        if self.soe: # Stack Internal (Enterprise)
             webhooks_url = f"{self.base_url}/enterprise/webhooks"
             page_count = self.get_page_count(webhooks_url + '?page=1&pagesize=50')
             for page in range(1, page_count + 1):
@@ -336,7 +336,7 @@ class WebClient(object):
                 webhooks += self.scrape_webhooks_page(page_url, communities)
             print(f"Found {len(webhooks)} webhooks")
 
-        else: # Stack Overflow Business or Basic
+        else: # Stack Internal Business or Basic
             slack_webhooks_url = f"{self.base_url}/admin/integrations/slack"
             print(f"Getting webhooks from {slack_webhooks_url}")
             webhooks += self.scrape_webhooks_page(slack_webhooks_url, communities)
@@ -351,17 +351,17 @@ class WebClient(object):
     
 
     def scrape_webhooks_page(self, page_url, communities):
-        # For Stack Overflow Enterprise, the webhook_type is a column in the table
-        # For Stack Overflow Business or Basic, the webhook type isn't in the table, so it's
+        # For Stack Internal Enterprise, the webhook_type is a column in the table
+        # For Stack Internal Business or Basic, the webhook type isn't in the table, so it's
         # inferred from the URL
 
         response = self.get_page_response(page_url)
         soup = BeautifulSoup(response.text, 'html.parser')
         webhook_rows = soup.find_all('tr')
 
-        if self.soe: # Stack Overflow Enterprise
+        if self.soe: # Stack Internal (Enterprise)
             webhooks = self.process_webhooks(webhook_rows, communities)
-        else: # Stack Overflow Business or Basic
+        else: # Stack Internal Business or Basic
             # type should be the the last part of the URL
             type = page_url.split('/')[-1]
             webhooks = self.process_webhooks(webhook_rows, communities, webhook_type=type)
@@ -398,13 +398,13 @@ class WebClient(object):
             # Activity types are comma-delimited; everything else is space-delimited
             # The words after "to" are the channel; also, surrounded by <b></b> tags
 
-            if self.soe: # For Stack Overflow Enterprise
+            if self.soe: # For Stack Internal (Enterprise)
                 webhook_type = self.strip_html(columns[0].text)
                 description = self.strip_html(columns[2].text).replace(
                     '(added via synonyms) ', '').replace(',', '')
                 creator = columns[3].text
                 creation_date = columns[4].text
-            else: # For Stack Overflow Business or Basic
+            else: # For Stack Internal Business or Basic
                 description = self.strip_html(columns[0].text).replace(
                     '(added via synonyms) ', '').replace(',', '')
                 creator = columns[1].text
