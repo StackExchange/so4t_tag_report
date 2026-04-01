@@ -201,8 +201,11 @@ class V2Client(object):
             # Rate limiting documentation: https://api.stackexchange.com/docs/throttle
             if json_data.get('backoff'):
                 backoff_time = json_data.get('backoff') + 1
+                so4t_request_validate.last_api_backoff = backoff_time
                 print(f"API backoff request received. Waiting {backoff_time} seconds...")
                 time.sleep(backoff_time)
+            else:
+                so4t_request_validate.last_api_backoff = 0
         
             if not json_data.get('has_more'):
                 break
