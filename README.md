@@ -36,21 +36,9 @@ If using the `--web-client` argument, there are additional requirements (details
 
 For the Business tier, you'll need a [personal access token](https://stackoverflowteams.help/en/articles/4385859-stack-overflow-for-teams-api) (PAT). You'll need to obtain an API key and an access token for Enterprise. Documentation for creating an Enterprise key and token can be found within your instance at this url: `https://[your_site]/api/docs/authentication`
 
-**Before proceeding, please note a critical step when creating your API Application in Stack Internal (Enterprise) for Access Token generation:**
+**Generating an Access Token (Enterprise)**
 
-**Generating an Access Token**
-
-To generate an Access Token for Enterprise, you must first ensure your API Application is correctly configured:
-
-* **API Application "Domain" Field Requirement:** When creating your API Application (where you obtain your Client ID and Client Secret), the "Domain" field *must* be populated with the base URL of your Stack Internal (Enterprise) instance (e.g., `https://your.stack-internal-enterprise.url`). **Although the UI may mark this field as 'Optional,' failure to populate it will prevent Access Token generation and lead to a `"redirect_uri is not configured"` error during the OAuth flow.**
-
-Once your API Application is configured with a valid Domain, follow these steps to generate your Access Token:
-
-* Go to the page where you created your API key. Take note of the "Client ID" associated with your API key.
-* Go to the following URL, replacing the base URL, the `client_id`, and the base URL of the `redirect_uri` with your own:
-`https://YOUR.SO-INTERNAL-ENTERPRISE.URL/oauth/dialog?client_id=111&redirect_uri=https://YOUR.SO-INTERNAL-ENTERPRISE.URL/oauth/login_success`
-* You may be prompted to log in to Stack Internal (Enterprise) if you're not already. Either way, you'll be redirected to a page that simply says "Authorizing Application."
-* In the URL of that page, you'll find your access token. Example: `https://YOUR.SO-INTERNAL-ENTERPRISE.URL/oauth/login_success#access_token=YOUR_TOKEN`
+For secure Access Token generation, follow the [Secure API Token Generation with OAuth and PKCE](https://support.stackenterprise.co/support/solutions/articles/22000294542-secure-api-token-generation-with-oauth-and-pkce) guide.
 
 **Note on Access Token Requirements:**
 While API v3 now generally allows querying with just an API key for most GET requests, certain paths and data (e.g., `/images` and the email attribute on a `User` object) still specifically require an Access Token for access. If you encounter permissions errors on such paths, ensure you are using an Access Token.
