@@ -4,6 +4,7 @@ Here is a list of current metrics that are included in the CSV report, as well a
 
 | Metric     | Description                                                                          |
 |------------|--------------------------------------------------------------------------------------|
+| Tag Creation Date | The date and time the tag was first created on the site (ISO 8601, UTC). Useful for putting other tag metrics in context — a low question count on a brand-new tag is very different from the same count on a tag that's existed for years. |
 | Total Page Views | The aggregate number of page views across all questions and articles for a given tag. This can be a helpful measurement of how popular the tag is, as well as how often knowledge is being reused within a given tag.|
 | Tag Watchers | The number of users who have subscribed to email notifications for a given tag. This can be a gauge of how much visibility this tag receives when a new question, answer, or article is posted.|
 | Communities | The number of communities associated with a given tag. This can be a gauge of how much visibility this tag receives when a new question, answer, or article is posted.|
