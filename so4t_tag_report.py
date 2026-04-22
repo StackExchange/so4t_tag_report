@@ -322,7 +322,7 @@ def process_tags(tags):
     for tag in tags:
         tag['metrics'] = {
             'tag_name': tag['name'],
-            'tag_creation_date': tag.get('creationDate'),
+            'tag_creation_date': (tag.get('creationDate') or '')[:10],
             'total_page_views': 0,
             'webhooks': 0,
             'tag_watchers': tag['watcherCount'],
