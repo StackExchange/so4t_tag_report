@@ -383,6 +383,8 @@ def process_questions(tags, questions):
     for question in questions:
         for tag in question['tags']:
             tag_index = get_tag_index(tags, tag)
+            if tag_index is None:
+                continue
             tag_data = tags[tag_index]
             asker_id = validate_user_id(question['owner'])
             
@@ -523,6 +525,8 @@ def process_articles(tags, articles):
     for article in articles:
         for tag in article['tags']:
             tag_index = get_tag_index(tags, tag)
+            if tag_index is None:
+                continue
             tag_data = tags[tag_index]
             tag_data['metrics']['total_page_views'] += article['view_count']
             tag_data['metrics']['article_count'] += 1
