@@ -170,6 +170,44 @@ class TagProcessingTests(unittest.TestCase):
         mock_filter.assert_called_once_with(api_data, 30)
         mock_create_report.assert_called_once_with(api_data, 30)
 
+    @patch('so4t_tag_report.create_tag_report')
+    @patch('so4t_tag_report.filter_api_data_by_date')
+    @patch('so4t_tag_report.read_json')
+    @patch('so4t_tag_report.get_args')
+    def test_main_no_api_adds_last_used_before_days_filtering(
+            self, mock_get_args, mock_read_json, mock_filter, mock_create_report):
+        args = SimpleNamespace(no_api=True, days=30)
+        api_data = {
+            'tags': [make_tag('known-tag', tag_id=42)],
+            'questions': [{
+                'tags': ['known-tag'],
+                'creation_date': utc_timestamp(2020, 1, 2),
+            }],
+            'articles': [],
+            'webhooks': [],
+            'communities': [],
+        }
+        filtered_data = {'filtered': True}
+        mock_get_args.return_value = args
+        mock_read_json.side_effect = lambda filename: {
+            'questions.json': api_data['questions'],
+            'articles.json': api_data['articles'],
+            'tags.json': api_data['tags'],
+            'webhooks.json': api_data['webhooks'],
+            'communities.json': api_data['communities'],
+        }[filename]
+
+        def assert_last_used_before_filtering(data, days):
+            self.assertEqual('2020-01-02', data['tags'][0]['lastUsed'])
+            return filtered_data
+
+        mock_filter.side_effect = assert_last_used_before_filtering
+
+        so4t_tag_report.main()
+
+        mock_filter.assert_called_once_with(api_data, 30)
+        mock_create_report.assert_called_once_with(filtered_data, 30)
+
 
 if __name__ == '__main__':
     unittest.main()
