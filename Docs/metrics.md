@@ -4,6 +4,8 @@ Here is a list of current metrics that are included in the CSV report, as well a
 
 | Metric     | Description                                                                          |
 |------------|--------------------------------------------------------------------------------------|
+| Tag ID | The tag's unique API v3 identifier. This remains stable when the tag name is displayed in different report contexts. |
+| Last Used | The most recent UTC date on which the tag appeared on a newly created question or article, formatted `YYYY-MM-DD`. This value is all-time even when `--days` filters the other report metrics, and is blank for a tag that has never been used. |
 | Tag Creation Date | The date the tag was first created on the site, formatted `YYYY-MM-DD`. Useful for putting other tag metrics in context — a low question count on a brand-new tag is very different from the same count on a tag that's existed for years. |
 | Total Page Views | The aggregate number of page views across all questions and articles for a given tag. This can be a helpful measurement of how popular the tag is, as well as how often knowledge is being reused within a given tag.|
 | Tag Watchers | The number of users who have subscribed to email notifications for a given tag. This can be a gauge of how much visibility this tag receives when a new question, answer, or article is posted.|
