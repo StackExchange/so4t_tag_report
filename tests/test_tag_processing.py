@@ -58,12 +58,16 @@ class TagProcessingTests(unittest.TestCase):
         self.assertEqual('2025-02-03', tags[1]['lastUsed'])
 
     def test_add_last_used_to_tags_uses_latest_valid_timestamp_and_ignores_invalid_content(self):
-        tags = [make_tag('used-tag'), make_tag('unused-tag', tag_id=2)]
+        tags = [
+            make_tag('used-tag'),
+            make_tag('unused-tag', tag_id=2),
+            make_tag('boolean-only-tag', tag_id=3),
+        ]
         questions = [
             {'tags': ['used-tag'], 'creation_date': utc_timestamp(2025, 1, 2)},
             {'tags': ['used-tag'], 'creation_date': 'not-a-timestamp'},
-            {'tags': ['used-tag'], 'creation_date': True},
             {'tags': ['used-tag']},
+            {'tags': ['boolean-only-tag'], 'creation_date': True},
             {'tags': ['unknown-tag'], 'creation_date': utc_timestamp(2026, 1, 1)},
         ]
         articles = [{'tags': ['used-tag'],
@@ -73,6 +77,7 @@ class TagProcessingTests(unittest.TestCase):
 
         self.assertEqual('2025-03-04', tags[0]['lastUsed'])
         self.assertEqual('', tags[1]['lastUsed'])
+        self.assertEqual('', tags[2]['lastUsed'])
 
     @patch('so4t_tag_report.time.time', return_value=utc_timestamp(2026, 1, 10))
     def test_filtering_content_does_not_erase_annotated_last_used(self, mock_time):
