@@ -80,7 +80,9 @@ class TagProcessingTests(unittest.TestCase):
         self.assertEqual('', tags[2]['lastUsed'])
 
     @patch('so4t_tag_report.time.time', return_value=utc_timestamp(2026, 1, 10))
-    def test_filtering_content_does_not_erase_annotated_last_used(self, mock_time):
+    @patch('so4t_tag_report.export_to_json')
+    def test_filtering_content_does_not_erase_annotated_last_used(
+            self, mock_export_to_json, mock_time):
         tags = [make_tag('old-tag')]
         api_data = {
             'tags': tags,
@@ -96,6 +98,7 @@ class TagProcessingTests(unittest.TestCase):
         self.assertEqual([], filtered_data['questions'])
         self.assertEqual('2025-01-02', filtered_data['tags'][0]['lastUsed'])
         mock_time.assert_called_once_with()
+        mock_export_to_json.assert_called_once_with('filtered_api_data', api_data)
 
     def test_process_questions_skips_unknown_tags(self):
         tags = so4t_tag_report.process_tags([make_tag('known-tag')])
