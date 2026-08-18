@@ -61,7 +61,7 @@ As described below, you can add some additional arguments to the command line to
 
 ### `--no-api` and `--days`
 
-By default, the CSV report aggregates all historical data for the tags. If you'd like to filter this based on a certain amount of history, the `--days` argument can be used to indicate how many days of history you want to use for the CSV report. If you wanted to pull just the last 90 days worth of data, it would look like this:
+By default, the CSV report aggregates all historical data for the tags. If you'd like to filter this based on a certain amount of history, the `--days` argument can be used to indicate how many days of history you want to use for the CSV report. `Last Used` is always calculated from all fetched questions and articles and is not restricted by `--days`. If you wanted to pull just the last 90 days worth of data, it would look like this:
 `python3 so4t_tag_report.py --url "https://SUBDOMAIN.stackenterprise.co" --key "YOUR_KEY" --token "YOUR_TOKEN" --days 90`
 
 In conjunction with the `--days` argument, `--no-api` allows you to leverage preexisting JSON data from previous executions of this script. This is significantly faster than running all the API calls again; in fact, it's nearly instantaneous. If you were looking to generate tag metrics based on a variety of time ranges (via `--days`), using the `—no-api` argument significantly speeds up the process. 
