@@ -41,6 +41,9 @@ def main():
     else:
         so4t_data = data_collector(args)
 
+    so4t_data['tags'] = add_last_used_to_tags(
+        so4t_data['tags'], so4t_data['questions'], so4t_data['articles'])
+
     # If --days is used, filter API data by date
     if args.days:
         so4t_data = filter_api_data_by_date(so4t_data, args.days)
@@ -350,7 +353,9 @@ def process_tags(tags):
     for tag in tags:
         tag['metrics'] = {
             'tag_name': tag['name'],
+            'tag_id': tag['id'],
             'tag_creation_date': (tag.get('creationDate') or '')[:10],
+            'last_used': tag.get('lastUsed', ''),
             'total_page_views': 0,
             'webhooks': 0,
             'tag_watchers': tag['watcherCount'],

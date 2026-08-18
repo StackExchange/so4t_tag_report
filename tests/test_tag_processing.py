@@ -2,6 +2,7 @@ import datetime
 import unittest
 import sys
 import types
+from types import SimpleNamespace
 from unittest.mock import patch
 
 for module_name, class_name in (
@@ -131,6 +132,43 @@ class TagProcessingTests(unittest.TestCase):
 
         self.assertEqual(0, processed_tags[0]['metrics']['article_count'])
         self.assertEqual(0, processed_tags[0]['metrics']['total_page_views'])
+
+    def test_process_tags_includes_tag_id_and_last_used_metrics(self):
+        tags = so4t_tag_report.process_tags([
+            make_tag('known-tag', tag_id=42, last_used='2026-07-08')])
+
+        metrics = tags[0]['metrics']
+        self.assertEqual(42, metrics['tag_id'])
+        self.assertEqual('2026-07-08', metrics['last_used'])
+
+    @patch('so4t_tag_report.create_tag_report')
+    @patch('so4t_tag_report.filter_api_data_by_date')
+    @patch('so4t_tag_report.data_collector')
+    @patch('so4t_tag_report.get_args')
+    def test_main_adds_last_used_before_days_filtering(
+            self, mock_get_args, mock_data_collector, mock_filter, mock_create_report):
+        args = SimpleNamespace(no_api=False, days=30)
+        api_data = {
+            'tags': [make_tag('known-tag', tag_id=42)],
+            'questions': [{
+                'tags': ['known-tag'],
+                'creation_date': utc_timestamp(2020, 1, 2),
+            }],
+            'articles': [],
+        }
+        mock_get_args.return_value = args
+        mock_data_collector.return_value = api_data
+
+        def assert_last_used_before_filtering(data, days):
+            self.assertEqual('2020-01-02', data['tags'][0]['lastUsed'])
+            return data
+
+        mock_filter.side_effect = assert_last_used_before_filtering
+
+        so4t_tag_report.main()
+
+        mock_filter.assert_called_once_with(api_data, 30)
+        mock_create_report.assert_called_once_with(api_data, 30)
 
 
 if __name__ == '__main__':
