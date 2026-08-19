@@ -6,6 +6,7 @@ If you run into difficulties, please leave feedback in the Github Issues.
 # Standard Python libraries
 import argparse
 import csv
+import datetime
 import json
 import os
 import pickle
@@ -39,6 +40,9 @@ def main():
             raise SystemExit
     else:
         so4t_data = data_collector(args)
+
+    so4t_data['tags'] = add_last_used_to_tags(
+        so4t_data['tags'], so4t_data['questions'], so4t_data['articles'])
 
     # If --days is used, filter API data by date
     if args.days:
@@ -230,6 +234,33 @@ def get_users(v3client):
     return users
 
 
+def add_last_used_to_tags(tags, questions, articles):
+    last_used_by_tag = {tag['name']: None for tag in tags}
+
+    for content in questions + articles:
+        timestamp = content.get('creation_date')
+        if isinstance(timestamp, bool):
+            continue
+        try:
+            formatted_date = datetime.datetime.fromtimestamp(
+                timestamp, datetime.timezone.utc).date().isoformat()
+        except (TypeError, ValueError, OSError, OverflowError):
+            continue
+
+        for tag_name in content.get('tags', []):
+            if tag_name not in last_used_by_tag:
+                continue
+            current = last_used_by_tag[tag_name]
+            if current is None or timestamp > current[0]:
+                last_used_by_tag[tag_name] = (timestamp, formatted_date)
+
+    for tag in tags:
+        last_used = last_used_by_tag[tag['name']]
+        tag['lastUsed'] = last_used[1] if last_used else ''
+
+    return tags
+
+
 def filter_api_data_by_date(api_data, days):
 
     today = int(time.time())
@@ -322,7 +353,9 @@ def process_tags(tags):
     for tag in tags:
         tag['metrics'] = {
             'tag_name': tag['name'],
+            'tag_id': tag['id'],
             'tag_creation_date': (tag.get('creationDate') or '')[:10],
+            'last_used': tag.get('lastUsed', ''),
             'total_page_views': 0,
             'webhooks': 0,
             'tag_watchers': tag['watcherCount'],
