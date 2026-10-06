@@ -50,11 +50,13 @@ class V3Client(object):
         print("Testing API v3 connection...")
         try:
             response = requests.get(endpoint_url, headers=self.headers, 
-                                    proxies=self.proxies)
+                                    proxies=self.proxies,
+                                    timeout=so4t_request_validate.timeout)
         except requests.exceptions.SSLError:
             print("SSL error. Trying again without SSL verification...")
             response = requests.get(endpoint_url, headers=self.headers, verify=False, 
-                                    proxies=self.proxies)
+                                    proxies=self.proxies,
+                                    timeout=so4t_request_validate.timeout)
             ssl_verify = False
         
         if response.status_code == 200:
@@ -68,29 +70,44 @@ class V3Client(object):
 
 
     def get_all_questions(self):
-            
-            method = "get"
-            endpoint = "/questions"
-            params = {
-                'page': 1,
-                'pagesize': 100,
-            }
-            questions = self.send_api_call(method, endpoint, params)
-    
-            return questions
+        questions = self.send_api_call('get', '/questions',
+                                       {'page': 1, 'pageSize': 100})
+        for question in questions:
+            question['comments'] = (self.get_question_comments(question['id'])
+                                    if question['commentCount'] else [])
+            question['answers'] = (self.get_question_answers(question['id'])
+                                   if question['answerCount'] else [])
+        return questions
+
+
+    def get_question_answers(self, question_id):
+        answers = self.send_api_call(
+            'get', f'/questions/{question_id}/answers',
+            {'page': 1, 'pageSize': 100, 'sort': 'creation', 'order': 'asc'})
+        for answer in answers:
+            answer['comments'] = (self.get_answer_comments(question_id, answer['id'])
+                                  if answer['commentCount'] else [])
+        return answers
+
+
+    def get_question_comments(self, question_id):
+        return self.send_api_call('get', f'/questions/{question_id}/comments')
+
+
+    def get_answer_comments(self, question_id, answer_id):
+        return self.send_api_call(
+            'get', f'/questions/{question_id}/answers/{answer_id}/comments')
+
+
+    def get_all_articles(self):
+        return self.send_api_call('get', '/articles',
+                                  {'page': 1, 'pageSize': 100})
 
 
     def get_all_tags(self):
 
-        method = "get"
-        endpoint = "/tags"
-        params = {
-            'page': 1,
-            'pagesize': 100,
-        }
-        tags = self.send_api_call(method, endpoint, params)
-
-        return tags
+        return self.send_api_call('get', '/tags',
+                                  {'page': 1, 'pageSize': 100})
 
 
     def get_tag_smes(self, tag_id):
@@ -108,17 +125,18 @@ class V3Client(object):
             endpoint = "/users"
             params = {
                 'page': 1,
-                'pagesize': 100,
+                'pageSize': 100,
             }
             users = self.send_api_call(method, endpoint, params)
     
             return users
 
 
-    def send_api_call(self, method, endpoint, params={}):
+    def send_api_call(self, method, endpoint, params=None):
 
         get_response = getattr(requests, method, None) # get the method from the requests library
         endpoint_url = self.api_url + endpoint
+        params = params.copy() if params else {}
 
         data = []
         while True:
@@ -159,10 +177,10 @@ class V3Client(object):
                 print(f"API request successfully sent to {endpoint_url}")
                 break
 
-            if type(params) == dict and params.get('page'): # check request for pagination
+            if params.get('page'): # check request for pagination
                 print(f"Received page {params['page']} from {endpoint_url}")
                 data += json_data['items']
-                if params['page'] == json_data['totalPages']:
+                if params['page'] >= json_data['totalPages']:
                     break
                 params['page'] += 1
                 so4t_request_validate.retry_count = 0

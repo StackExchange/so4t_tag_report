@@ -1,97 +1,35 @@
-# Stack Internal Tag Report (so4t_tag_report)
-A Python script that uses the Stack Internal API to create a CSV report of how well each tag is performing. You can see an example of what the output looks like in the Examples directory ([here](https://github.com/StackExchange/so4t_tag_report/blob/main/Examples/tag_metrics.csv)). The example CSV contains synthetic, illustrative values.
+# Stack Internal Tag Report
 
-For a detailed list of metrics included in the report, see [Metrics in the CSV Report](https://github.com/StackExchange/so4t_tag_report/blob/main/Docs/metrics.md)
+**Use the [standalone HTML report](tag-report.html).** It is the recommended version of this tool. Open the file in a modern browser, connect it to your Stack Internal site with an API access token, and download a CSV report. There is nothing to install.
 
-## Table of Contents
-* [Requirements](https://github.com/StackExchange/so4t_tag_report?tab=readme-ov-file#requirements)
-* [Setup](https://github.com/StackExchange/so4t_tag_report?tab=readme-ov-file#setup)
-* [Basic Usage](https://github.com/StackExchange/so4t_tag_report?tab=readme-ov-file#basic-usage)
-* [Advanced Usage](https://github.com/StackExchange/so4t_tag_report?tab=readme-ov-file#advanced-usage)
-  * [`--no-api` and `--days`](https://github.com/StackExchange/so4t_tag_report?tab=readme-ov-file#--no-api-and---days)
-  * [`--web-client`](https://github.com/StackExchange/so4t_tag_report?tab=readme-ov-file#--web-client)
-  * [`--proxy`](https://github.com/StackExchange/so4t_tag_report?tab=readme-ov-file#--proxy)
-* [Support, security, and legal](https://github.com/StackExchange/so4t_tag_report?tab=readme-ov-file#support-security-and-legal)
+The Python scripts remain in this repository for historical reference only. They are no longer the recommended way to generate a report.
 
-## Requirements
-* A Stack Internal instance (Basic, Business, or Enterprise)
-  * If using a version of Stack Internal (Enterprise) prior to 2023.3, please use the [2023.2 branch](https://github.com/StackExchangeo/so4t_tag_report/tree/2023.2) instead
-* Python 3.9 or higher ([download](https://www.python.org/downloads/))
-* Operating system: Linux, MacOS, or Windows
+## Use the HTML report
 
-If using the `--web-client` argument, there are additional requirements (details in [Advanced Usage](https://github.com/StackExchange/so4t_tag_report#--web-client) section)
+1. Download [tag-report.html](tag-report.html) and open it in your browser.
+2. Enter your Teams URL, such as `https://stackoverflowteams.com/c/TEAM-NAME`, or the root URL of your Enterprise site, such as `https://SUBDOMAIN.stackenterprise.co`.
+3. Paste a personal access token (Basic or Business) or an OAuth access token (Enterprise) with permission to read the site.
+4. Optionally enter a number of days. Leave it blank for an all-time report.
+5. Select **Generate report**. When collection finishes, review the preview and select **Download CSV**.
 
-## Setup
+The page collects all API v3 pages, then retrieves answers, comments, and subject matter experts needed for the metrics. Large sites can take time to process. After collection, you can change the days field to recalculate the report without making another API request. **Last Used** always reflects all fetched content, even when the other metrics are limited by days.
 
-[Download](https://github.com/StackExchange/so4t_tag_report/archive/refs/heads/main.zip) and unpack the contents of this repository
+The token is cleared from the form when collection starts and is not saved to browser storage or included in the CSV. The page sends it as a Bearer token only to the API host derived from the URL you enter. Check that URL before generating a report. The data stays in the browser tab until you close or reload it.
 
-**Installing Dependencies**
+### Browser access
 
-* Open a terminal window (or, for Windows, a command prompt)
-* Navigate to the directory where you unpacked the files
-* Install the dependencies: `pip3 install -r requirements.txt`
+The API must permit browser requests from the page's origin. The public Teams API currently accepts requests from a locally opened HTML file; Enterprise sites can have different cross-origin settings. If collection stops with a browser access error, your site administrator may need to allow that origin for API v3 requests with the `Authorization` header. The page cannot override the site's browser access policy.
 
+## Report contents
 
-**API Authentication**
+The CSV includes tag usage, page views, watchers, subject matter experts, contributor counts, response times, question and answer counts, article counts, and scores. See [metric definitions](Docs/metrics.md) and a [synthetic example CSV](Examples/tag_metrics.csv).
 
-For the Business tier, you'll need a [personal access token](https://stackoverflowteams.help/en/articles/4385859-stack-overflow-for-teams-api) (PAT). You'll need to obtain an API key and an access token for Enterprise. Documentation for creating an Enterprise key and token can be found within your instance at this url: `https://[your_site]/api/docs/authentication`
+API v3 exposes a net **score** (upvotes minus downvotes) for questions, answers, and articles. It does not expose separate upvote and downvote totals. The HTML report does not include webhook or community counts; those were optional browser-scraped metrics in the historical Python tool.
 
-**Generating an Access Token (Enterprise)**
+## Historical Python scripts
 
-For secure Access Token generation, follow the [Secure API Token Generation with OAuth and PKCE](https://support.stackenterprise.co/support/solutions/articles/22000294542-secure-api-token-generation-with-oauth-and-pkce) guide.
+`so4t_tag_report.py` and its supporting Python files are retained for reference. They require Python and the packages in `requirements.txt`, and can optionally collect browser-scraped metrics with `--web-client`. New users should use `tag-report.html`.
 
-**Note on Access Token Requirements:**
-While API v3 now generally allows querying with just an API key for most GET requests, certain paths and data (e.g., `/images` and the email attribute on a `User` object) still specifically require an Access Token for access. If you encounter permissions errors on such paths, ensure you are using an Access Token.
+## Support
 
-
-## Basic Usage
-
-In a terminal window, navigate to the directory where you unpacked the script. 
-Run the script using the following format, replacing the URL, token, and/or key with your own:
-* For Basic and Business: `python3 so4t_tag_report.py --url "https://stackoverflowteams.com/c/TEAM-NAME" --token "YOUR_TOKEN"`
-* For Enterprise: `python3 so4t_tag_report.py --url "https://SUBDOMAIN.stackenterprise.co" --key "YOUR_KEY" --token "YOUR_TOKEN"`
-
-The script can take several minutes to run, particularly as it gathers data via the API. As it runs, it will update the terminal window with the tasks it performs.
-
-When the script completes, it will indicate that the CSV has been exported, along with the file name. You can see an example of what the output looks like [here](https://github.com/jklick-so/so4t_tag_report/blob/main/Examples/tag_metrics.csv).
-
-## Advanced Usage
-
-As described below, you can add some additional arguments to the command line to customize the script's behavior. All arguments (and instructions) can also be found by running the `--help` argument: `python3 so4t_tag_report.py --help` 
-
-### `--no-api` and `--days`
-
-By default, the CSV report aggregates all historical data for the tags. If you'd like to filter this based on a certain amount of history, the `--days` argument can be used to indicate how many days of history you want to use for the CSV report. `Last Used` is always calculated from all fetched questions and articles and is not restricted by `--days`. If you wanted to pull just the last 90 days worth of data, it would look like this:
-`python3 so4t_tag_report.py --url "https://SUBDOMAIN.stackenterprise.co" --key "YOUR_KEY" --token "YOUR_TOKEN" --days 90`
-
-In conjunction with the `--days` argument, `--no-api` allows you to leverage preexisting JSON data from previous executions of this script. This is significantly faster than running all the API calls again; in fact, it's nearly instantaneous. If you were looking to generate tag metrics based on a variety of time ranges (via `--days`), using the `—no-api` argument significantly speeds up the process. 
-
-Example:
-* You generate an initial CSV report via the Basic Usage instructions: `python3 so4t_tag_report.py --url "https://SUBDOMAIN.stackenterprise.co" --key "YOUR_KEY" --token "YOUR_TOKEN"`
-* an `api_data.json` file is generated and stored locally as part of collecting data via the API. For subsequent script runs where you're trying to generate the report for different time ranges, you can use the preexisting `api_data.json` data by leveraging the `--no-api` argument.
-* To quickly generate a CSV report for the past 30 days: `python3 so4t_tag_report.py --no-api --days 30`
-* Then, you generate a report for the past 90 days: `python3 so4t_tag_report.py --no-api --days 90`
-
-Note: when using `--no-api`, the `--url`, `--key`, and `--token` arguments are unecessary. When you'd like to update the JSON data via fresh API calls, simply remove the `no-api` argument and add back the required authentication arguments.
-
-### `--web-client`
-The `--web-client` argument allows you to gather additional data from Stack Internal, particularly data that is **not** available via the API (yet). 
-
-> **NOTE**: For this specific script feature, you'll need to ensure you have Google Chrome installed on your computer. You'll be prompted with a login window (via Chrome) for your Stack Internal instance when the script runs. Once you've logged in, that window will close, and the script will continue to run.
-
-Here are the additional data points that are obtained when scraping is enabled, along with any additional requirements for obtaining those data points:
-
-* The number of configured webhooks (ChatOps notifications) for each tag [Requirements: admin permissions]
-* The number of communities associated with a tag. If webhooks are configured for a community, the webhook count will be included in the webhook count for the tag. [Requirements: admin permissions]
-
-To use this function, simply append the `--web-client` argument to the end of the command for running the Python script. Example: `python3 so4t_tag_report.py --url "https://SUBDOMAIN.stackenterprise.co" --key "YOUR_KEY" --token "YOUR_TOKEN" --web-client`
-
-### `--proxy`
-The `--proxy` argument allows you to use a proxy server to make the API calls. This is useful if you're behind a corporate firewall or if you're running the script on a server that requires a proxy to access the internet.
-
-To use this argument, simply append the `--proxy` argument to the end of the command for running the Python script, including the proxy server's address in the argument. Example: `python3 so4t_tag_report.py --url "https://SUBDOMAIN.stackenterprise.co" --key "YOUR_KEY" --token "YOUR_TOKEN" --proxy "PROXY.EXAMPLE.COM:PORTNUMBER"`
-
-## Support, security, and legal
-If you encounter problems using the script, please leave feedback in the Github Issues. You can also clone and change the script to suit your needs. It is provided as-is, with no warranty or guarantee of any kind.
-
-All data is handled locally on the device from which the script is run. The script does not transmit data to other parties, such as Stack Overflow. All of the API calls performed are read only, so there is no risk of editing or adding content on your Stack Internal instance.
+If you encounter a problem, please open a GitHub issue. The report only makes read-only API requests; it does not edit Stack Internal content.

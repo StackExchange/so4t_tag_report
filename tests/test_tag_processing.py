@@ -3,12 +3,18 @@ import unittest
 import sys
 import types
 from types import SimpleNamespace
-from unittest.mock import patch
+from unittest.mock import Mock, patch
+
+try:
+    import requests
+except ModuleNotFoundError:
+    requests = types.ModuleType('requests')
+    requests.get = Mock()
+    requests.exceptions = types.SimpleNamespace(SSLError=Exception)
+    sys.modules['requests'] = requests
 
 for module_name, class_name in (
     ('so4t_web_client', 'WebClient'),
-    ('so4t_api_v2', 'V2Client'),
-    ('so4t_api_v3', 'V3Client'),
 ):
     module = types.ModuleType(module_name)
     setattr(module, class_name, object)
@@ -33,13 +39,21 @@ def make_tag(name, tag_id=1, last_used=''):
 
 def utc_timestamp(year, month, day):
     return int(datetime.datetime(
-        year, month, day, tzinfo=datetime.timezone.utc).timestamp())
+    year, month, day, tzinfo=datetime.timezone.utc).timestamp())
+
+
+def iso_date(year, month, day):
+    return f'{year:04d}-{month:02d}-{day:02d}T00:00:00Z'
+
+
+def named_tag(name):
+    return {'name': name}
 
 
 def make_owner(user_id=1):
     return {
-        'user_id': user_id,
-        'display_name': f'User {user_id}',
+        'id': user_id,
+        'name': f'User {user_id}',
     }
 
 
@@ -47,10 +61,10 @@ class TagProcessingTests(unittest.TestCase):
 
     def test_add_last_used_to_tags_derives_dates_from_each_content_type(self):
         tags = [make_tag('question-tag'), make_tag('article-tag')]
-        questions = [{'tags': ['question-tag'],
-                      'creation_date': utc_timestamp(2025, 1, 2)}]
-        articles = [{'tags': ['article-tag'],
-                     'creation_date': utc_timestamp(2025, 2, 3)}]
+        questions = [{'tags': [named_tag('question-tag')],
+                      'creationDate': iso_date(2025, 1, 2)}]
+        articles = [{'tags': [named_tag('article-tag')],
+                     'creationDate': iso_date(2025, 2, 3)}]
 
         result = so4t_tag_report.add_last_used_to_tags(tags, questions, articles)
 
@@ -65,20 +79,32 @@ class TagProcessingTests(unittest.TestCase):
             make_tag('boolean-only-tag', tag_id=3),
         ]
         questions = [
-            {'tags': ['used-tag'], 'creation_date': utc_timestamp(2025, 1, 2)},
-            {'tags': ['used-tag'], 'creation_date': 'not-a-timestamp'},
-            {'tags': ['used-tag']},
-            {'tags': ['boolean-only-tag'], 'creation_date': True},
-            {'tags': ['unknown-tag'], 'creation_date': utc_timestamp(2026, 1, 1)},
+            {'tags': [named_tag('used-tag')], 'creationDate': iso_date(2025, 1, 2)},
+            {'tags': [named_tag('used-tag')], 'creationDate': 'not-a-timestamp'},
+            {'tags': [named_tag('used-tag')]},
+            {'tags': [named_tag('boolean-only-tag')], 'creationDate': True},
+            {'tags': [named_tag('unknown-tag')], 'creationDate': iso_date(2026, 1, 1)},
         ]
-        articles = [{'tags': ['used-tag'],
-                     'creation_date': utc_timestamp(2025, 3, 4)}]
+        articles = [{'tags': [named_tag('used-tag')],
+                     'creationDate': iso_date(2025, 3, 4)}]
 
         so4t_tag_report.add_last_used_to_tags(tags, questions, articles)
 
         self.assertEqual('2025-03-04', tags[0]['lastUsed'])
         self.assertEqual('', tags[1]['lastUsed'])
         self.assertEqual('', tags[2]['lastUsed'])
+
+    def test_add_last_used_ignores_deleted_content(self):
+        tags = [make_tag('python')]
+        questions = [
+            {'tags': [named_tag('python')], 'creationDate': iso_date(2025, 1, 2)},
+            {'tags': [named_tag('python')], 'creationDate': iso_date(2026, 1, 2),
+             'isDeleted': True},
+        ]
+
+        so4t_tag_report.add_last_used_to_tags(tags, questions, [])
+
+        self.assertEqual('2025-01-02', tags[0]['lastUsed'])
 
     @patch('so4t_tag_report.time.time', return_value=utc_timestamp(2026, 1, 10))
     @patch('so4t_tag_report.export_to_json')
@@ -87,8 +113,8 @@ class TagProcessingTests(unittest.TestCase):
         tags = [make_tag('old-tag')]
         api_data = {
             'tags': tags,
-            'questions': [{'tags': ['old-tag'],
-                           'creation_date': utc_timestamp(2025, 1, 2)}],
+            'questions': [{'tags': [named_tag('old-tag')],
+                           'creationDate': iso_date(2025, 1, 2)}],
             'articles': [],
         }
 
@@ -104,13 +130,12 @@ class TagProcessingTests(unittest.TestCase):
     def test_process_questions_skips_unknown_tags(self):
         tags = so4t_tag_report.process_tags([make_tag('known-tag')])
         questions = [{
-            'tags': ['missing-tag'],
+            'tags': [named_tag('missing-tag')],
             'owner': make_owner(),
-            'view_count': 10,
-            'up_vote_count': 1,
-            'down_vote_count': 0,
-            'creation_date': 1000,
-            'link': 'https://example.com/q/1',
+            'viewCount': 10,
+            'score': 1,
+            'creationDate': iso_date(2026, 1, 1),
+            'webUrl': 'https://example.com/q/1',
         }]
 
         processed_tags = so4t_tag_report.process_questions(tags, questions)
@@ -121,11 +146,11 @@ class TagProcessingTests(unittest.TestCase):
     def test_process_articles_skips_unknown_tags(self):
         tags = so4t_tag_report.process_tags([make_tag('known-tag')])
         articles = [{
-            'tags': ['missing-tag'],
+            'tags': [named_tag('missing-tag')],
             'owner': make_owner(),
-            'view_count': 10,
+            'viewCount': 10,
             'score': 1,
-            'comment_count': 1,
+            'commentCount': 1,
         }]
 
         processed_tags = so4t_tag_report.process_articles(tags, articles)
@@ -141,6 +166,97 @@ class TagProcessingTests(unittest.TestCase):
         self.assertEqual(42, metrics['tag_id'])
         self.assertEqual('2026-07-08', metrics['last_used'])
 
+    def test_v3_content_produces_scores_contributors_and_response_times(self):
+        tag = make_tag('python')
+        tag['smes']['users'] = [make_owner(2)]
+        question = {
+            'id': 10, 'tags': [named_tag('python')], 'owner': make_owner(1),
+            'creationDate': '2026-01-01T00:00:00Z', 'webUrl': 'https://example.com/q/10',
+            'viewCount': 10, 'score': 2,
+            'comments': [
+                {'ownerUserId': 4, 'ownerDisplayName': 'User 4',
+                 'creationDate': '2026-01-01T03:00:00Z'},
+                {'ownerUserId': 1, 'ownerDisplayName': 'User 1',
+                 'creationDate': '2026-01-01T01:00:00Z'},
+            ],
+            'answers': [{
+                'owner': make_owner(2), 'creationDate': '2026-01-01T02:00:00Z',
+                'score': 3, 'isAccepted': True, 'comments': [],
+            }],
+        }
+        article = {
+            'tags': [named_tag('python')], 'owner': make_owner(3),
+            'viewCount': 5, 'score': 1, 'commentCount': 2,
+        }
+        result = so4t_tag_report.process_api_data({
+            'tags': [tag], 'questions': [question], 'articles': [article],
+            'webhooks': None, 'communities': None,
+        })[0]
+        metrics = result['metrics']
+        self.assertEqual(15, metrics['total_page_views'])
+        self.assertEqual(2, metrics['question_score'])
+        self.assertEqual(3, metrics['answer_score'])
+        self.assertEqual(1, metrics['article_score'])
+        self.assertEqual(1, metrics['sme_answers'])
+        self.assertEqual(4, metrics['total_unique_contributors'])
+        self.assertEqual(2, metrics['median_time_to_first_response_hours'])
+        self.assertEqual(2, metrics['median_time_to_first_answer_hours'])
+        self.assertNotIn('question_upvotes', metrics)
+        self.assertNotIn('answer_downvotes', metrics)
+
+    def test_external_comment_counts_as_response_to_self_answered_question(self):
+        tag = so4t_tag_report.process_tags([make_tag('python')])
+        question = {
+            'tags': [named_tag('python')], 'owner': make_owner(1),
+            'creationDate': '2026-01-01T00:00:00Z', 'webUrl': 'https://example.com/q/1',
+            'viewCount': 1, 'score': 0,
+            'answers': [{'owner': make_owner(1), 'isAccepted': False,
+                         'creationDate': '2026-01-01T01:00:00Z', 'score': 0}],
+            'comments': [{'ownerUserId': 2, 'ownerDisplayName': 'User 2',
+                          'creationDate': '2026-01-01T03:00:00Z'}],
+        }
+        result = so4t_tag_report.process_questions(tag, [question])[0]
+        self.assertEqual(1, len(result['self_answered_questions']))
+        self.assertEqual([{'https://example.com/q/1': 3}], result['response_times'])
+
+    def test_external_answer_after_self_answer_counts_as_first_answer(self):
+        tag = so4t_tag_report.process_tags([make_tag('python')])
+        question = {
+            'tags': [named_tag('python')], 'owner': make_owner(1),
+            'creationDate': '2026-01-01T00:00:00Z', 'webUrl': 'https://example.com/q/1',
+            'viewCount': 1, 'score': 0, 'comments': [],
+            'answers': [
+                {'owner': make_owner(2), 'isAccepted': False,
+                 'creationDate': '2026-01-01T04:00:00Z', 'score': 0},
+                {'owner': make_owner(1), 'isAccepted': False,
+                 'creationDate': '2026-01-01T01:00:00Z', 'score': 0},
+            ],
+        }
+
+        result = so4t_tag_report.process_questions(tag, [question])[0]
+
+        self.assertEqual(1, len(result['self_answered_questions']))
+        self.assertEqual([{'https://example.com/q/1': 4}], result['answer_times'])
+
+    @patch('so4t_tag_report.export_to_json')
+    @patch('so4t_tag_report.V3Client')
+    def test_collector_uses_v3_for_all_api_content(self, client_class, export):
+        client = client_class.return_value
+        client.get_all_questions.return_value = []
+        client.get_all_articles.return_value = []
+        client.get_all_tags.return_value = []
+        args = SimpleNamespace(web_client=False, url='https://example.com',
+                               token='token', proxy=None)
+
+        data = so4t_tag_report.data_collector(args)
+
+        self.assertEqual({'questions': [], 'articles': [], 'tags': [],
+                          'webhooks': None, 'communities': None}, data)
+        client_class.assert_called_once_with(args.url, args.token, None)
+        client.get_all_questions.assert_called_once_with()
+        client.get_all_articles.assert_called_once_with()
+        client.get_all_tags.assert_called_once_with()
+
     @patch('so4t_tag_report.create_tag_report')
     @patch('so4t_tag_report.filter_api_data_by_date')
     @patch('so4t_tag_report.data_collector')
@@ -151,8 +267,8 @@ class TagProcessingTests(unittest.TestCase):
         api_data = {
             'tags': [make_tag('known-tag', tag_id=42)],
             'questions': [{
-                'tags': ['known-tag'],
-                'creation_date': utc_timestamp(2020, 1, 2),
+                'tags': [named_tag('known-tag')],
+                'creationDate': iso_date(2020, 1, 2),
             }],
             'articles': [],
         }
@@ -180,8 +296,8 @@ class TagProcessingTests(unittest.TestCase):
         api_data = {
             'tags': [make_tag('known-tag', tag_id=42)],
             'questions': [{
-                'tags': ['known-tag'],
-                'creation_date': utc_timestamp(2020, 1, 2),
+                'tags': [named_tag('known-tag')],
+                'creationDate': iso_date(2020, 1, 2),
             }],
             'articles': [],
             'webhooks': [],

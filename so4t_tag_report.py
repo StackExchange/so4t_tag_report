@@ -15,7 +15,6 @@ import statistics
 
 # Local libraries
 from so4t_web_client import WebClient
-from so4t_api_v2 import V2Client
 from so4t_api_v3 import V3Client
 
 
@@ -64,7 +63,7 @@ def get_args():
                 '--token "YOUR_TOKEN" \n\n'
                 'Example for Stack Internal (Enterprise): \n'
                 'python3 so4t_tag_report.py --url "https://SUBDOMAIN.stackenterprise.co" '
-                '--key "YOUR_KEY" --token "YOUR_TOKEN"\n\n')
+                '--token "YOUR_TOKEN"\n\n')
     
     parser.add_argument('--url', 
                         type=str,
@@ -74,14 +73,10 @@ def get_args():
                         type=str,
                         help='API token for your Stack Internal instance. '
                         'Required if --no-api is not used')
-    parser.add_argument('--key',
-                        type=str,
-                        help='API key value. Required if using Enterprise and --no-api is not used')
-    
     parser.add_argument('--no-api',
                         action='store_true',
                         help='If API data has already been collected, skip API calls and use '
-                        'existing JSON data. This negates the need for --url, --token, or --key.')
+                        'existing JSON data. This negates the need for --url or --token.')
     parser.add_argument('--days',
                         type=int,
                         help='Only include metrics for content created within the past X days. '
@@ -114,14 +109,13 @@ def data_collector(args):
             with open(session_file, 'wb') as f:
                 pickle.dump(web_client, f)
         
-    # Instantiate V2Client and V3Client classes to make API calls
-    v2client = V2Client(args.url, args.key, args.token, args.proxy)
+    # Collect all API data through v3.
     v3client = V3Client(args.url, args.token, args.proxy)
     
     # Get all questions, answers, comments, articles, tags, and SMEs via API
     so4t_data = {}
-    so4t_data['questions'] = get_questions_answers_comments(v2client) # also gets answers/comments
-    so4t_data['articles'] = get_articles(v2client)
+    so4t_data['questions'] = v3client.get_all_questions() # also gets answers/comments
+    so4t_data['articles'] = v3client.get_all_articles()
     so4t_data['tags'] = get_tags(v3client) # also gets tag SMEs
 
     # Get additional data via web scraping
@@ -139,72 +133,8 @@ def data_collector(args):
     return so4t_data
 
 
-def get_questions_answers_comments(v2client):
-    
-    # The API filter used for the /questions endpoint makes it so that the API returns
-    # all answers and comments for each question. This is more efficient than making
-    # separate API calls for answers and comments.
-    # Filter documentation: https://api.stackexchange.com/docs/filters
-    if v2client.soe: # Stack Internal (Enterprise) requires the generation of a custom filter
-        filter_attributes = [
-            "answer.body",
-            "answer.body_markdown",
-            "answer.comment_count",
-            "answer.comments",
-            "answer.down_vote_count",
-            "answer.last_editor",
-            "answer.link",
-            "answer.share_link",
-            "answer.up_vote_count",
-            "comment.body",
-            "comment.body_markdown",
-            "comment.link",
-            "question.answers",
-            "question.body",
-            "question.body_markdown",
-            "question.comment_count",
-            "question.comments",
-            "question.down_vote_count",
-            "question.favorite_count",
-            "question.last_editor",
-            "question.notice",
-            "question.share_link",
-            "question.up_vote_count"
-        ]
-        filter_string = v2client.create_filter(filter_attributes)
-    else: # Stack Internal Business or Basic
-        filter_string = '!X9DEEiFwy0OeSWoJzb.QMqab2wPSk.X2opZDa2L'
-    questions = v2client.get_all_questions(filter_string)
-
-    return questions
-
-
-def get_articles(v2client):
-
-    if v2client.soe:
-        filter_attributes = [
-            "article.body",
-            "article.body_markdown",
-            "article.comment_count",
-            "article.comments",
-            "article.last_editor",
-            "comment.body",
-            "comment.body_markdown",
-            "comment.link"
-        ]
-        filter_string = v2client.create_filter(filter_attributes)
-    else: # Stack Internal Business or Basic
-        filter_string = '!*Mg4Pjg9LXr9d_(v'
-
-    articles = v2client.get_all_articles(filter_string)
-
-    return articles
-
-
 def get_tags(v3client):
 
-    # While API v2 is more robust for collecting tag data, it does not return the tag ID field, 
-    # which is needed to get the SMEs for each tag. Therefore, API v3 is used to get the tag ID
     tags = v3client.get_all_tags()
 
     # Get subject matter experts (SMEs) for each tag. This API call is only available in v3.
@@ -212,7 +142,7 @@ def get_tags(v3client):
     # making it a bit slower to get through. 
     # FUTURE WORK: implementing some form of concurrency would speed this up.
     for tag in tags:
-        if tag['subjectMatterExpertCount'] > 0:
+        if tag.get('subjectMatterExpertCount'):
             tag['smes'] = v3client.get_tag_smes(tag['id']) 
         else:
             tag['smes'] = {'users': [], 'userGroups': []}
@@ -238,16 +168,16 @@ def add_last_used_to_tags(tags, questions, articles):
     last_used_by_tag = {tag['name']: None for tag in tags}
 
     for content in questions + articles:
-        timestamp = content.get('creation_date')
-        if isinstance(timestamp, bool):
+        if content.get('isDeleted'):
             continue
-        try:
-            formatted_date = datetime.datetime.fromtimestamp(
-                timestamp, datetime.timezone.utc).date().isoformat()
-        except (TypeError, ValueError, OSError, OverflowError):
+        timestamp = creation_timestamp(content)
+        if timestamp is None:
             continue
+        formatted_date = datetime.datetime.fromtimestamp(
+            timestamp, datetime.timezone.utc).date().isoformat()
 
-        for tag_name in content.get('tags', []):
+        for tag in content.get('tags', []):
+            tag_name = tag['name']
             if tag_name not in last_used_by_tag:
                 continue
             current = last_used_by_tag[tag_name]
@@ -261,18 +191,32 @@ def add_last_used_to_tags(tags, questions, articles):
     return tags
 
 
+def creation_timestamp(content):
+    """Convert an API v3 creationDate to a UTC timestamp."""
+    value = content.get('creationDate')
+    if not isinstance(value, str):
+        return None
+    try:
+        date = datetime.datetime.fromisoformat(value.replace('Z', '+00:00'))
+        if date.tzinfo is None:
+            date = date.replace(tzinfo=datetime.timezone.utc)
+        return date.timestamp()
+    except (ValueError, OverflowError):
+        return None
+
+
 def filter_api_data_by_date(api_data, days):
 
     today = int(time.time())
     start_date = today - (days * 24 * 60 * 60)  # convert days to seconds
 
     # Filter questions and articles by creation date
-    questions = [question for question in api_data['questions'] 
-                 if question['creation_date'] > start_date]
+    questions = [question for question in api_data['questions']
+                 if (creation_timestamp(question) or 0) > start_date]
     api_data['questions'] = questions
 
     articles = [article for article in api_data['articles']
-                if article['creation_date'] > start_date]
+                if (creation_timestamp(article) or 0) > start_date]
     api_data['articles'] = articles
 
     # Uncomment to export filtered data to JSON
@@ -369,19 +313,17 @@ def process_tags(tags):
             'unique_commenters': 0,
             'unique_article_contributors': 0,
             'question_count': 0,
-            'question_upvotes': 0,
-            'question_downvotes': 0,
+            'question_score': 0,
             'question_comments': 0,
             'questions_no_answers': 0,
             'questions_accepted_answer': 0,
             'questions_self_answered': 0,
             'answer_count': 0,
             'sme_answers': 0,
-            'answer_upvotes': 0,
-            'answer_downvotes': 0,
+            'answer_score': 0,
             'answer_comments': 0,
             'article_count': 0,
-            'article_upvotes': 0,
+            'article_score': 0,
             'article_comments': 0,
         }
         tag['contributors'] = {
@@ -414,20 +356,21 @@ def process_tags(tags):
 def process_questions(tags, questions):
 
     for question in questions:
+        if question.get('isDeleted'):
+            continue
         for tag in question['tags']:
-            tag_index = get_tag_index(tags, tag)
+            tag_index = get_tag_index(tags, tag['name'])
             if tag_index is None:
                 continue
             tag_data = tags[tag_index]
-            asker_id = validate_user_id(question['owner'])
+            asker_id = validate_user_id(question.get('owner'))
             
             tag_data['contributors']['askers'] = add_user_to_list(
                 asker_id, tag_data['contributors']['askers'])
 
             tag_data['metrics']['question_count'] += 1
-            tag_data['metrics']['total_page_views'] += question['view_count']
-            tag_data['metrics']['question_upvotes'] += question['up_vote_count']
-            tag_data['metrics']['question_downvotes'] += question['down_vote_count']
+            tag_data['metrics']['total_page_views'] += question['viewCount']
+            tag_data['metrics']['question_score'] += question['score']
 
             # Calculate tag metrics for comments
             if question.get('comments'):
@@ -437,9 +380,11 @@ def process_questions(tags, questions):
                 time_to_first_comment = 0
             
             # calculate tag metrics for answers
-            if question.get('answers'):
+            answers = [answer for answer in question.get('answers', [])
+                       if not answer.get('isDeleted')]
+            if answers:
                 tag_data, time_to_first_answer = process_answers(
-                    tag_data, question['answers'], question)
+                    tag_data, answers, question)
             else:
                 tag_data['metrics']['questions_no_answers'] += 1
                 time_to_first_answer = 0
@@ -451,16 +396,12 @@ def process_questions(tags, questions):
             elif time_to_first_answer > 0:
                 time_to_first_response = time_to_first_answer
             elif time_to_first_comment > 0:
-                # If the question is self-answered, the first comment is not considered a response
-                if question['link'] not in tag_data['self_answered_questions']:
-                    time_to_first_response = time_to_first_comment
-                else:
-                    time_to_first_response = None
+                time_to_first_response = time_to_first_comment
             else:
                 time_to_first_response = None
 
             if time_to_first_response: # if there are no responses, don't add to list
-                tag_data['response_times'].append({question['link']: time_to_first_response})
+                tag_data['response_times'].append({question['webUrl']: time_to_first_response})
                                         
             tags[tag_index] = tag_data
 
@@ -470,14 +411,15 @@ def process_questions(tags, questions):
 def process_answers(tag_data, answers, question):
 
     for answer in answers:
-        answerer_id = validate_user_id(answer['owner'])
+        if answer.get('isDeleted'):
+            continue
+        answerer_id = validate_user_id(answer.get('owner'))
         tag_data['contributors']['answerers'] = add_user_to_list(
             answerer_id, tag_data['contributors']['answerers'])
-        if answer['is_accepted']:
+        if answer['isAccepted']:
             tag_data['metrics']['questions_accepted_answer'] += 1
         tag_data['metrics']['answer_count'] += 1
-        tag_data['metrics']['answer_upvotes'] += answer['up_vote_count']
-        tag_data['metrics']['answer_downvotes'] += answer['down_vote_count']
+        tag_data['metrics']['answer_score'] += answer['score']
 
         # Calculate number of answers from SMEs
         if (answerer_id in tag_data['contributors']['group_smes'] 
@@ -487,36 +429,33 @@ def process_answers(tag_data, answers, question):
         if answer.get('comments'):
             tag_data['metrics']['answer_comments'] += len(answer['comments'])
             for comment in answer['comments']:
-                commenter_id = validate_user_id(comment['owner'])
+                commenter_id = validate_comment_owner_id(comment)
                 tag_data['contributors']['commenters'] = add_user_to_list(
                     commenter_id, tag_data['contributors']['commenters']
                 )
 
-    # Calculate time to first answer (i.e. response) for questions
-    # Deleted answers do not show up in the API response; they are not included in the calculation
-        # This creates an outlier/edge case where the original answer was deleted and the next
-        # fastest answer is used instead, which could've been posted at a much later time
-    # If the fastest response is from the question asker, then the question is self-answered
-    # If the fastest answer owner does not have a `user_id` attribute, the owner was deleted
-    # If the owner of the question has a 'user_id', we can validate it was not self-answered
-    # If both uers have been deleted, the `display_name` attribute can be compared to see if they
-        # are the same person
+    # Find the earliest non-deleted answer, regardless of the API's item order.
     time_to_first_answer = 0
-    if answers[0]['owner'].get('user_id'): # answer owner is known
-        if answers[0]['owner']['user_id'] != question['owner'].get('user_id'):
-            time_to_first_answer = (answers[0]['creation_date'] - question['creation_date'])/60/60
-        else: # if answer owner is the same as question owner, it's a self-answer
-            tag_data['self_answered_questions'].append(question['link'])
-    elif question['owner'].get('user_id'): # answer owner is unknown, but question owner is known
-        time_to_first_answer = (answers[0]['creation_date'] - question['creation_date'])/60/60
-    else: # if both question and answer owner are unknown, check display names for a match
-        if answers[0]['owner']['display_name'] == question['owner']['display_name']:
-            tag_data['self_answered_questions'].append(question['link'])
-        else:
-            time_to_first_answer = (answers[0]['creation_date'] - question['creation_date'])/60/60
+    first_answer = min(
+        (answer for answer in answers if not answer.get('isDeleted') and
+         creation_timestamp(answer) is not None),
+        key=creation_timestamp, default=None)
+    question_timestamp = creation_timestamp(question)
+    if first_answer and question_timestamp is not None:
+        if same_user(first_answer.get('owner'), question.get('owner')):
+            tag_data['self_answered_questions'].append(question['webUrl'])
+
+        first_external_answer = min(
+            (answer for answer in answers if not answer.get('isDeleted') and
+             creation_timestamp(answer) is not None and
+             not same_user(answer.get('owner'), question.get('owner'))),
+            key=creation_timestamp, default=None)
+        if first_external_answer:
+            time_to_first_answer = max(0, (
+                creation_timestamp(first_external_answer) - question_timestamp) / 3600)
 
     if time_to_first_answer:
-        tag_data['answer_times'].append({question['link']: time_to_first_answer})
+        tag_data['answer_times'].append({question['webUrl']: time_to_first_answer})
 
     return tag_data, time_to_first_answer
 
@@ -525,30 +464,20 @@ def process_question_comments(tag_data, question):
 
     tag_data['metrics']['question_comments'] += len(question['comments'])
     for comment in question['comments']:
-        commenter_id = validate_user_id(comment['owner'])
+        commenter_id = validate_comment_owner_id(comment)
         tag_data['contributors']['commenters'] = add_user_to_list(
             commenter_id, tag_data['contributors']['commenters'])
 
-    # Calculate time to first comment
-    # There's an edge case where the first comment is from the question asker,
-        # where we may want to consider looking at subsequent comments
-        # May need to add a check for this
-    # If the fastest response is from the question asker, then disregard it
-    # If the fastest answer owner does not have a `user_id` attribute, the owner was deleted
-    # If the owner of the question has a 'user_id', we can validate it was not self-answered
-    # If both uers have been deleted, the `display_name` attribute can be compared to see if they
-        # are the same person
-    if question['comments'][0]['owner'].get('user_id'):
-        if question['comments'][0]['owner']['user_id'] != question['owner'].get('user_id'):
-            time_to_first_comment = (question['comments'][0]['creation_date'] - 
-                                    question['creation_date'])/60/60
-        else:
-            time_to_first_comment = 0
-    elif question['owner'].get('user_id'):
-        time_to_first_comment = (question['comments'][0]['creation_date'] - 
-                                    question['creation_date'])/60/60
-    else:
-        time_to_first_comment = 0
+    # A comment from the asker is not a response; find the first external one.
+    external_comments = [comment for comment in question['comments']
+                         if creation_timestamp(comment) is not None and
+                         not same_user(comment_owner(comment), question.get('owner'))]
+    first_comment = min(external_comments, key=creation_timestamp, default=None)
+    time_to_first_comment = 0
+    question_timestamp = creation_timestamp(question)
+    if first_comment and question_timestamp is not None:
+        time_to_first_comment = max(0, (
+            creation_timestamp(first_comment) - question_timestamp) / 3600)
 
     return tag_data, time_to_first_comment
 
@@ -556,32 +485,26 @@ def process_question_comments(tag_data, question):
 def process_articles(tags, articles):
 
     for article in articles:
+        if article.get('isDeleted'):
+            continue
         for tag in article['tags']:
-            tag_index = get_tag_index(tags, tag)
+            tag_index = get_tag_index(tags, tag['name'])
             if tag_index is None:
                 continue
             tag_data = tags[tag_index]
-            tag_data['metrics']['total_page_views'] += article['view_count']
+            tag_data['metrics']['total_page_views'] += article['viewCount']
             tag_data['metrics']['article_count'] += 1
-            tag_data['metrics']['article_upvotes'] += article['score']
-            tag_data['metrics']['article_comments'] += article['comment_count']
+            tag_data['metrics']['article_score'] += article['score']
+            tag_data['metrics']['article_comments'] += article['commentCount']
             tag_data['metrics']['unique_article_contributors'] = len(
                 tag_data['contributors']['article_contributors'])
 
             # Add article author to list of contributors
-            article_author_id = validate_user_id(article['owner'])
+            article_author_id = validate_user_id(article.get('owner'))
             tag_data['contributors']['article_contributors'] = add_user_to_list(
                 article_author_id, tag_data['contributors']['article_contributors']
             )
 
-            # As of 2023.05.23, Article comments are slightly innaccurate due to a bug in the API
-            # if article.get('comments'):
-            #     for comment in article['comments']:
-            #         commenter_id = validate_user_id(comment)
-            #         tag_contributors[tag]['commenters'] = add_user_to_list(
-            #             commenter_id, tag_contributors[tag]['commenters']
-            #         )
-        
             tags[tag_index] = tag_data
 
     return tags
@@ -661,13 +584,27 @@ def add_user_to_list(user_id, user_list):
 
 
 def validate_user_id(user):
+    user = user or {}
+    if user.get('id') is not None:
+        return user['id']
+    return f"{user.get('name') or 'Unknown user'} (DELETED)"
 
-    try:
-        user_id = user['user_id']
-    except KeyError: # if user_id is not present, the user was deleted
-        user_id = f"{user['display_name']} (DELETED)"
 
-    return user_id
+def comment_owner(comment):
+    return {'id': comment.get('ownerUserId'),
+            'name': comment.get('ownerDisplayName')}
+
+
+def validate_comment_owner_id(comment):
+    return validate_user_id(comment_owner(comment))
+
+
+def same_user(first, second):
+    first, second = first or {}, second or {}
+    if first.get('id') is not None and second.get('id') is not None:
+        return first['id'] == second['id']
+    return (first.get('id') is None and second.get('id') is None and
+            bool(first.get('name')) and first['name'] == second.get('name'))
 
 
 def export_to_csv(data_name, data):

@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Stack Internal Tag Report</title>
+  <style>
+    :root { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #172331; background: #f4f6f8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    .shell { max-width: 1240px; margin: 0 auto; padding: 36px 24px 72px; }
+    .topline { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 30px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 750; letter-spacing: -.02em; }
+    .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; background: #f48225; color: white; font-size: 20px; }
+    .eyebrow { color: #52657a; font-size: 12px; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { font-size: clamp(32px, 5vw, 54px); letter-spacing: -.055em; line-height: 1.08; margin: 10px 0 12px; }
+    h2 { font-size: 20px; letter-spacing: -.025em; margin: 0; }
+    p { line-height: 1.55; }
+    .intro { max-width: 690px; color: #52657a; font-size: 17px; margin: 0 0 30px; }
+    .layout { display: grid; grid-template-columns: minmax(280px, 380px) minmax(0, 1fr); gap: 20px; align-items: start; }
+    .card { background: #fff; border: 1px solid #dce3e9; border-radius: 16px; box-shadow: 0 10px 30px rgba(24, 40, 56, .045); }
+    .setup { padding: 26px; }
+    .setup h2 { margin-bottom: 20px; }
+    label { display: block; font-size: 13px; font-weight: 700; margin: 18px 0 7px; }
+    label:first-of-type { margin-top: 0; }
+    input { width: 100%; border: 1px solid #c5d0da; border-radius: 9px; padding: 11px 12px; background: #fff; color: #172331; outline-offset: 2px; }
+    input:focus { border-color: #e56e13; outline: 2px solid #ffd8b7; }
+    input::placeholder { color: #91a0ad; }
+    .hint { margin: 6px 0 0; color: #657689; font-size: 12px; line-height: 1.4; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
+    .primary, .secondary, .quiet { border-radius: 9px; padding: 10px 15px; font-weight: 700; border: 1px solid transparent; }
+    .primary { background: #df6811; color: #fff; }
+    .primary:hover { background: #c4580b; }
+    .secondary { background: #fff; border-color: #bdc9d3; color: #26394b; }
+    .secondary:hover { background: #f2f5f7; }
+    .quiet { background: transparent; color: #52657a; padding-left: 0; }
+    button:disabled { cursor: not-allowed; opacity: .5; }
+    .security { margin: 20px 0 0; border-top: 1px solid #edf0f3; padding-top: 17px; font-size: 12px; color: #617287; }
+    .workspace { min-width: 0; }
+    .status-card { padding: 24px; }
+    .status-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+    .badge { border-radius: 999px; background: #eef2f5; color: #4f6476; font-size: 12px; font-weight: 750; padding: 6px 10px; white-space: nowrap; }
+    .badge.running { background: #fff2e7; color: #ad4c08; }
+    .badge.done { background: #e8f6ed; color: #236c3f; }
+    .badge.error { background: #fdeceb; color: #a7352b; }
+    #status-message { font-weight: 700; margin: 21px 0 4px; }
+    #status-detail { color: #637487; margin: 0; font-size: 13px; }
+    .progress { height: 7px; border-radius: 999px; background: #e9eef2; overflow: hidden; margin: 24px 0 18px; }
+    .progress > span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #e56e13, #f5aa60); transition: width .2s ease; }
+    .counts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .count { padding: 13px; background: #f6f8fa; border-radius: 10px; }
+    .count strong { display: block; font-size: 21px; letter-spacing: -.04em; }
+    .count span { color: #6b7c8b; font-size: 11px; font-weight: 650; text-transform: uppercase; letter-spacing: .06em; }
+    .activity { border-top: 1px solid #edf0f3; margin: 21px 0 0; padding: 16px 0 0 18px; color: #647588; font-size: 12px; min-height: 58px; }
+    .activity li { margin: 4px 0; }
+    .results { margin-top: 20px; overflow: hidden; }
+    .results-top { display: flex; justify-content: space-between; gap: 18px; align-items: center; padding: 23px 24px 17px; }
+    .results-top p { color: #657689; font-size: 13px; margin: 5px 0 0; }
+    .result-tools { display: flex; gap: 10px; align-items: center; padding: 0 24px 18px; }
+    .result-tools input { max-width: 320px; }
+    .table-wrap { overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; min-width: 740px; font-size: 13px; }
+    th, td { text-align: left; padding: 12px 16px; border-top: 1px solid #edf0f3; white-space: nowrap; }
+    th { color: #66788b; background: #f8fafb; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+    td:first-child { font-weight: 700; }
+    td.num { font-variant-numeric: tabular-nums; text-align: right; }
+    th.num { text-align: right; }
+    tbody tr:hover { background: #fcf7f3; }
+    .table-note { padding: 12px 24px 18px; font-size: 12px; color: #6b7c8b; margin: 0; }
+    .empty { padding: 36px 24px; text-align: center; color: #708092; }
+    .help { margin-top: 20px; color: #637487; font-size: 12px; }
+    .help a { color: #a94b0c; }
+    [hidden] { display: none !important; }
+    @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } .counts { grid-template-columns: repeat(2, 1fr); } .results-top { align-items: start; flex-direction: column; } }
+    @media (max-width: 520px) { .shell { padding: 22px 14px 48px; } .setup, .status-card { padding: 20px; } .topline { margin-bottom: 24px; } .result-tools { flex-direction: column; align-items: stretch; } .result-tools input { max-width: none; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="topline">
+      <div class="brand"><div class="brand-mark" aria-hidden="true">≡</div><span>Stack Internal</span></div>
+      <span class="eyebrow">API v3 · Browser edition</span>
+    </div>
+    <header>
+      <div class="eyebrow">Knowledge health</div>
+      <h1>Tag report</h1>
+      <p class="intro">See how tags are used across questions, answers, and articles. Build the report in your browser and download a CSV without installing anything.</p>
+    </header>
+
+    <div class="layout">
+      <section class="card setup" aria-labelledby="setup-title">
+        <h2 id="setup-title">Build a report</h2>
+        <form id="report-form">
+          <label for="site-url">Team or site URL</label>
+          <input id="site-url" type="url" placeholder="https://stackoverflowteams.com/c/your-team" autocomplete="url" required>
+          <p class="hint">Use your Teams URL or Enterprise site URL.</p>
+
+          <label for="token">API access token</label>
+          <input id="token" type="password" placeholder="Paste your token" autocomplete="off" spellcheck="false" required>
+          <p class="hint">Used only for read-only API v3 requests. Cleared from this form when collection starts.</p>
+
+          <label for="days">Days of history</label>
+          <input id="days" type="number" min="1" step="1" placeholder="All time" inputmode="numeric">
+          <p class="hint">Leave blank for all time. Last Used is always calculated from all fetched content.</p>
+
+          <div class="actions">
+            <button class="primary" id="run-button" type="submit">Generate report</button>
+            <button class="secondary" id="cancel-button" type="button" disabled>Cancel</button>
+          </div>
+        </form>
+        <p class="security">Your token and fetched content stay in this browser tab. Closing or reloading the page clears them. The CSV is saved only when you choose Download.</p>
+      </section>
+
+      <div class="workspace">
+        <section class="card status-card" aria-live="polite">
+          <div class="status-head"><h2>Collection status</h2><span class="badge" id="status-badge">Ready</span></div>
+          <p id="status-message">Ready when you are</p>
+          <p id="status-detail">Enter a URL and token to collect data from API v3.</p>
+          <div class="progress" role="progressbar" aria-label="Collection progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progress-fill"></span></div>
+          <div class="counts">
+            <div class="count"><strong id="tag-count">0</strong><span>Tags</span></div>
+            <div class="count"><strong id="question-count">0</strong><span>Questions</span></div>
+            <div class="count"><strong id="answer-count">0</strong><span>Answers</span></div>
+            <div class="count"><strong id="article-count">0</strong><span>Articles</span></div>
+          </div>
+          <ol class="activity" id="activity"><li>Waiting to start.</li></ol>
+        </section>
+
+        <section class="card results" id="results" hidden aria-labelledby="results-title">
+          <div class="results-top">
+            <div><h2 id="results-title">Report preview</h2><p id="results-subtitle"></p></div>
+            <button class="primary" id="download-button" type="button">Download CSV</button>
+          </div>
+          <div class="result-tools"><input id="tag-search" type="search" placeholder="Find a tag" aria-label="Find a tag"></div>
+          <div class="table-wrap"><table><thead><tr><th>Tag</th><th class="num">Questions</th><th class="num">Answers</th><th class="num">Articles</th><th class="num">Views</th><th class="num">Contributors</th><th>Last used</th></tr></thead><tbody id="preview-body"></tbody></table></div>
+          <p class="table-note" id="table-note"></p>
+        </section>
+      </div>
+    </div>
+    <p class="help">The HTML report includes metrics available through API v3. Webhook counts are unavailable through that API. Browser access for Enterprise sites depends on your site's cross-origin settings.</p>
+  </main>
+
+  <script>
+  (() => {
+    'use strict';
+
+    const columns = [
+      ['tag_name', 'Tag Name'], ['tag_id', 'Tag Id'], ['tag_creation_date', 'Tag Creation Date'],
+      ['last_used', 'Last Used'], ['total_page_views', 'Total Page Views'],
+      ['tag_watchers', 'Tag Watchers'], ['total_smes', 'Total Smes'],
+      ['median_time_to_first_answer_hours', 'Median Time To First Answer Hours'],
+      ['median_time_to_first_response_hours', 'Median Time To First Response Hours'],
+      ['total_unique_contributors', 'Total Unique Contributors'],
+      ['unique_askers', 'Unique Askers'], ['unique_answerers', 'Unique Answerers'],
+      ['unique_commenters', 'Unique Commenters'],
+      ['unique_article_contributors', 'Unique Article Contributors'],
+      ['question_count', 'Question Count'], ['question_score', 'Question Score'],
+      ['question_comments', 'Question Comments'], ['questions_no_answers', 'Questions No Answers'],
+      ['questions_accepted_answer', 'Questions Accepted Answer'],
+      ['questions_self_answered', 'Questions Self Answered'],
+      ['answer_count', 'Answer Count'], ['sme_answers', 'Sme Answers'],
+      ['answer_score', 'Answer Score'], ['answer_comments', 'Answer Comments'],
+      ['article_count', 'Article Count'], ['article_score', 'Article Score'],
+      ['article_comments', 'Article Comments']
+    ];
+
+    const el = id => document.getElementById(id);
+    const form = el('report-form');
+    const state = { data: null, report: null, reportDays: null, busy: false, controller: null, site: '' };
+    const countFormatter = new Intl.NumberFormat();
+
+    function setStatus(message, detail, badge = 'Ready') {
+      el('status-message').textContent = message;
+      el('status-detail').textContent = detail;
+      const badgeEl = el('status-badge');
+      badgeEl.textContent = badge;
+      badgeEl.className = 'badge ' + (badge === 'Collecting' ? 'running' : badge === 'Done' ? 'done' : badge === 'Error' ? 'error' : '');
+    }
+
+    function setProgress(percent) {
+      const value = Math.max(0, Math.min(100, Math.round(percent)));
+      el('progress-fill').style.width = value + '%';
+      document.querySelector('.progress').setAttribute('aria-valuenow', String(value));
+    }
+
+    function logActivity(message) {
+      const list = el('activity');
+      if (list.firstElementChild?.textContent === 'Waiting to start.') list.replaceChildren();
+      const item = document.createElement('li');
+      item.textContent = message;
+      list.append(item);
+      while (list.children.length > 5) list.firstElementChild.remove();
+    }
+
+    function updateCount(name, value) { el(name + '-count').textContent = countFormatter.format(value); }
+
+    function apiBaseFromSite(value) {
+      let url;
+      try { url = new URL(value); } catch { throw new Error('Enter a valid HTTPS team or site URL.'); }
+      if (url.protocol !== 'https:' || url.username || url.password || url.search || url.hash) {
+        throw new Error('Use an HTTPS site URL without credentials, a query, or a fragment.');
+      }
+      if (url.hostname.toLowerCase() === 'stackoverflowteams.com') {
+        const match = url.pathname.match(/^\/c\/([^/]+)\/?$/);
+        if (!match) throw new Error('Use a Teams URL such as https://stackoverflowteams.com/c/your-team.');
+        return { base: 'https://api.stackoverflowteams.com/v3/teams/' + encodeURIComponent(decodeURIComponent(match[1])), label: url.hostname + '/c/' + match[1] };
+      }
+      if (url.pathname !== '/' && url.pathname !== '') throw new Error('For Enterprise, enter the site root URL without a path.');
+      return { base: url.origin + '/api/v3', label: url.host };
+    }
+
+    function daysFromInput() {
+      const value = el('days').value.trim();
+      if (!value) return null;
+      const days = Number(value);
+      if (!Number.isSafeInteger(days) || days < 1) throw new Error('Days of history must be a positive whole number.');
+      return days;
+    }
+
+    function delay(ms, signal) {
+      return new Promise((resolve, reject) => {
+        if (signal.aborted) { reject(new DOMException('Cancelled', 'AbortError')); return; }
+        const timer = setTimeout(() => { signal.removeEventListener('abort', onAbort); resolve(); }, ms);
+        function onAbort() { clearTimeout(timer); reject(new DOMException('Cancelled', 'AbortError')); }
+        signal.addEventListener('abort', onAbort, { once: true });
+      });
+    }
+
+    async function apiGet(base, token, path, params, signal) {
+      const url = new URL(base + path);
+      for (const [key, value] of Object.entries(params || {})) url.searchParams.set(key, String(value));
+      for (let attempt = 0; attempt < 4; attempt++) {
+        let response;
+        try {
+          response = await fetch(url, {
+            method: 'GET', headers: { Authorization: 'Bearer ' + token },
+            credentials: 'omit', cache: 'no-store', signal
+          });
+        } catch (error) {
+          if (signal.aborted) throw error;
+          if (attempt < 3 && error instanceof TypeError) { await delay(800 * 2 ** attempt, signal); continue; }
+          throw new Error('The browser could not reach the API. Check the site URL, your network, and whether the API allows requests from this page.');
+        }
+        if ([429, 502, 503, 504].includes(response.status) && attempt < 3) {
+          const retryAfter = Number(response.headers.get('retry-after'));
+          await delay(Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter * 1000 : 800 * 2 ** attempt, signal);
+          continue;
+        }
+        if (!response.ok) {
+          if (response.status === 401 || response.status === 403) throw new Error('API access was denied (' + response.status + '). Check the token and site permissions.');
+          throw new Error('API request failed (' + response.status + ') at ' + path + '.');
+        }
+        let data;
+        try { data = await response.json(); } catch { throw new Error('The API returned invalid JSON at ' + path + '.'); }
+        const burstHeader = response.headers.get('x-burst-throttle-calls-left');
+        const burst = Number(burstHeader);
+        if (burstHeader !== null && Number.isFinite(burst) && burst < 3) {
+          const seconds = Number(response.headers.get('x-burst-throttle-seconds-until-full'));
+          await delay((Number.isFinite(seconds) && seconds > 0 ? seconds : 2) * 1000, signal);
+        }
+        const bucketHeader = response.headers.get('x-token-bucket-calls-left');
+        const bucket = Number(bucketHeader);
+        if (bucketHeader !== null && Number.isFinite(bucket) && bucket < 50) {
+          const seconds = Number(response.headers.get('x-token-bucket-seconds-until-next-refill'));
+          await delay((Number.isFinite(seconds) && seconds > 0 ? seconds : 60) * 1000, signal);
+        }
+        return data;
+      }
+      throw new Error('The API did not respond after several retries at ' + path + '.');
+    }
+
+    async function getPages(base, token, path, signal, extra = {}, onPage = () => {}) {
+      const items = [];
+      for (let page = 1; ; page++) {
+        const result = await apiGet(base, token, path, { page, pageSize: 100, ...extra }, signal);
+        if (!Array.isArray(result.items) || !Number.isInteger(result.totalPages)) {
+          throw new Error('Unexpected paginated API response at ' + path + '.');
+        }
+        items.push(...result.items);
+        onPage(items.length, result.totalCount || items.length);
+        if (page >= result.totalPages) return items;
+      }
+    }
+
+    async function collect(base, token, signal) {
+      setStatus('Loading tags', 'Fetching all tag pages.', 'Collecting');
+      const tags = await getPages(base, token, '/tags', signal, {}, count => updateCount('tag', count));
+      setProgress(12);
+      const smeTags = tags.filter(tag => Number(tag.subjectMatterExpertCount) > 0);
+      for (let index = 0; index < smeTags.length; index++) {
+        const tag = smeTags[index];
+        tag.smes = await apiGet(base, token, '/tags/' + tag.id + '/subject-matter-experts', {}, signal);
+        if (index % 10 === 0 || index === smeTags.length - 1) {
+          setStatus('Loading tag experts', (index + 1) + ' of ' + smeTags.length + ' tags with experts.', 'Collecting');
+        }
+      }
+      logActivity('Loaded ' + tags.length + ' tags and their expert assignments.');
+      setProgress(27);
+
+      setStatus('Loading articles', 'Fetching all article pages.', 'Collecting');
+      const articles = await getPages(base, token, '/articles', signal, {}, count => updateCount('article', count));
+      logActivity('Loaded ' + articles.length + ' articles.');
+      setProgress(42);
+
+      setStatus('Loading questions', 'Fetching all question pages.', 'Collecting');
+      const questions = await getPages(base, token, '/questions', signal, {}, count => updateCount('question', count));
+      logActivity('Loaded ' + questions.length + ' questions.');
+      setProgress(55);
+
+      let answerCount = 0;
+      for (let index = 0; index < questions.length; index++) {
+        const question = questions[index];
+        question.comments = question.commentCount
+          ? await apiGet(base, token, '/questions/' + question.id + '/comments', {}, signal) : [];
+        question.answers = question.answerCount
+          ? await getPages(base, token, '/questions/' + question.id + '/answers', signal,
+              { sort: 'creation', order: 'asc' }) : [];
+        if (!Array.isArray(question.comments)) throw new Error('Unexpected comments for question ' + question.id + '.');
+        for (const answer of question.answers) {
+          answer.comments = answer.commentCount
+            ? await apiGet(base, token, '/questions/' + question.id + '/answers/' + answer.id + '/comments', {}, signal) : [];
+          if (!Array.isArray(answer.comments)) throw new Error('Unexpected comments for answer ' + answer.id + '.');
+        }
+        answerCount += question.answers.length;
+        if (index % 10 === 0 || index === questions.length - 1) {
+          updateCount('answer', answerCount);
+          setStatus('Loading answers and comments', (index + 1) + ' of ' + questions.length + ' questions processed.', 'Collecting');
+          setProgress(55 + 43 * (index + 1) / Math.max(questions.length, 1));
+        }
+      }
+      logActivity('Loaded ' + answerCount + ' answers and related comments.');
+      setProgress(100);
+      return { tags, articles, questions };
+    }
+
+    function timestamp(value) {
+      if (typeof value !== 'string') return null;
+      const normalized = /(?:Z|[+-]\d\d:\d\d)$/i.test(value) ? value : value + 'Z';
+      const parsed = Date.parse(normalized);
+      return Number.isFinite(parsed) ? parsed : null;
+    }
+
+    function userKey(user) {
+      if (user && user.id != null) return 'id:' + user.id;
+      return 'deleted:' + (user?.name || 'Unknown user');
+    }
+
+    function commentOwner(comment) { return { id: comment.ownerUserId, name: comment.ownerDisplayName }; }
+
+    function sameUser(first, second) {
+      if (first?.id != null && second?.id != null) return first.id === second.id;
+      return first?.id == null && second?.id == null && Boolean(first?.name) && first.name === second?.name;
+    }
+
+    function median(values) {
+      if (!values.length) return 0;
+      const sorted = values.slice().sort((a, b) => a - b);
+      const center = Math.floor(sorted.length / 2);
+      const result = sorted.length % 2 ? sorted[center] : (sorted[center - 1] + sorted[center]) / 2;
+      return Math.round(result * 100) / 100;
+    }
+
+    function buildReport(data, days) {
+      const cutoff = days == null ? null : Date.now() - days * 86400000;
+      const byId = new Map();
+      const byName = new Map();
+      const records = data.tags.map(tag => {
+        const smes = new Set((tag.smes?.users || []).map(user => user.id));
+        for (const group of tag.smes?.userGroups || []) {
+          for (const user of group.users || []) smes.add(user.id);
+        }
+        const metrics = Object.fromEntries(columns.map(([key]) => [key, 0]));
+        Object.assign(metrics, {
+          tag_name: tag.name, tag_id: tag.id,
+          tag_creation_date: (tag.creationDate || '').slice(0, 10), last_used: '',
+          tag_watchers: Number(tag.watcherCount) || 0, total_smes: smes.size
+        });
+        const record = {
+          metrics, smes, askers: new Set(), answerers: new Set(), commenters: new Set(),
+          articleContributors: new Set(), answerTimes: [], responseTimes: [], lastUsedTime: null
+        };
+        byId.set(tag.id, record);
+        byName.set(tag.name, record);
+        return record;
+      });
+
+      function forContentTags(content, action) {
+        for (const tag of content.tags || []) {
+          const record = byId.get(tag.id) || byName.get(tag.name);
+          if (record) action(record);
+        }
+      }
+      function updateLastUsed(content) {
+        if (content.isDeleted) return;
+        const time = timestamp(content.creationDate);
+        if (time == null) return;
+        forContentTags(content, record => {
+          if (record.lastUsedTime == null || time > record.lastUsedTime) record.lastUsedTime = time;
+        });
+      }
+
+      for (const content of [...data.questions, ...data.articles]) updateLastUsed(content);
+
+      for (const question of data.questions) {
+        if (question.isDeleted) continue;
+        const created = timestamp(question.creationDate);
+        if (cutoff != null && (created == null || created <= cutoff)) continue;
+        forContentTags(question, record => {
+          const metric = record.metrics;
+          const owner = question.owner;
+          record.askers.add(userKey(owner));
+          metric.question_count++;
+          metric.total_page_views += Number(question.viewCount) || 0;
+          metric.question_score += Number(question.score) || 0;
+
+          const comments = question.comments || [];
+          metric.question_comments += comments.length;
+          let firstExternalComment = null;
+          for (const comment of comments) {
+            const commentUser = commentOwner(comment);
+            record.commenters.add(userKey(commentUser));
+            const time = timestamp(comment.creationDate);
+            if (time != null && !sameUser(commentUser, owner) &&
+                (firstExternalComment == null || time < firstExternalComment)) firstExternalComment = time;
+          }
+
+          const answers = (question.answers || []).filter(answer => !answer.isDeleted);
+          if (!answers.length) metric.questions_no_answers++;
+          let firstAnswer = null;
+          let firstExternalAnswer = null;
+          for (const answer of answers) {
+            const answerer = answer.owner;
+            record.answerers.add(userKey(answerer));
+            metric.answer_count++;
+            if (answer.isAccepted) metric.questions_accepted_answer++;
+            metric.answer_score += Number(answer.score) || 0;
+            if (answerer?.id != null && record.smes.has(answerer.id)) metric.sme_answers++;
+            const answerComments = answer.comments || [];
+            metric.answer_comments += answerComments.length;
+            for (const comment of answerComments) record.commenters.add(userKey(commentOwner(comment)));
+            const time = timestamp(answer.creationDate);
+            if (time != null && (firstAnswer == null || time < firstAnswer.time)) firstAnswer = { time, owner: answerer };
+            if (time != null && !sameUser(answerer, owner) &&
+                (firstExternalAnswer == null || time < firstExternalAnswer)) firstExternalAnswer = time;
+          }
+          if (firstAnswer && sameUser(firstAnswer.owner, owner)) metric.questions_self_answered++;
+          if (created != null) {
+            const answerHours = firstExternalAnswer == null ? 0 : Math.max(0, (firstExternalAnswer - created) / 3600000);
+            const commentHours = firstExternalComment == null ? 0 : Math.max(0, (firstExternalComment - created) / 3600000);
+            if (answerHours > 0) record.answerTimes.push(answerHours);
+            const response = answerHours > 0 && commentHours > 0 ? Math.min(answerHours, commentHours) : answerHours || commentHours;
+            if (response > 0) record.responseTimes.push(response);
+          }
+        });
+      }
+
+      for (const article of data.articles) {
+        if (article.isDeleted) continue;
+        const created = timestamp(article.creationDate);
+        if (cutoff != null && (created == null || created <= cutoff)) continue;
+        forContentTags(article, record => {
+          const metric = record.metrics;
+          metric.article_count++;
+          metric.total_page_views += Number(article.viewCount) || 0;
+          metric.article_score += Number(article.score) || 0;
+          metric.article_comments += Number(article.commentCount) || 0;
+          record.articleContributors.add(userKey(article.owner));
+        });
+      }
+
+      for (const record of records) {
+        const metric = record.metrics;
+        if (record.lastUsedTime != null) metric.last_used = new Date(record.lastUsedTime).toISOString().slice(0, 10);
+        metric.unique_askers = record.askers.size;
+        metric.unique_answerers = record.answerers.size;
+        metric.unique_commenters = record.commenters.size;
+        metric.unique_article_contributors = record.articleContributors.size;
+        metric.total_unique_contributors = new Set([
+          ...record.askers, ...record.answerers, ...record.commenters, ...record.articleContributors
+        ]).size;
+        metric.median_time_to_first_answer_hours = median(record.answerTimes);
+        metric.median_time_to_first_response_hours = median(record.responseTimes);
+      }
+      return records.map(record => record.metrics).sort((a, b) => b.total_page_views - a.total_page_views);
+    }
+
+    function csvCell(value) {
+      let text = String(value ?? '');
+      if (typeof value === 'string' && /^[\s\u0000-\u001f]*[=+\-@]/.test(text)) text = "'" + text;
+      return '"' + text.replaceAll('"', '""') + '"';
+    }
+
+    function csvForReport(report) {
+      const lines = [columns.map(([, title]) => csvCell(title)).join(',')];
+      for (const row of report) lines.push(columns.map(([key]) => csvCell(row[key])).join(','));
+      return '\ufeff' + lines.join('\r\n') + '\r\n';
+    }
+
+    function renderPreview() {
+      const term = el('tag-search').value.trim().toLowerCase();
+      const matches = state.report.filter(row => row.tag_name.toLowerCase().includes(term));
+      const body = el('preview-body');
+      body.replaceChildren();
+      for (const row of matches.slice(0, 100)) {
+        const tr = document.createElement('tr');
+        const values = [row.tag_name, row.question_count, row.answer_count, row.article_count,
+          row.total_page_views, row.total_unique_contributors, row.last_used || '—'];
+        values.forEach((value, index) => {
+          const td = document.createElement('td');
+          td.textContent = typeof value === 'number' ? countFormatter.format(value) : value;
+          if (index >= 1 && index <= 5) td.className = 'num';
+          tr.append(td);
+        });
+        body.append(tr);
+      }
+      el('table-note').textContent = matches.length
+        ? 'Showing ' + Math.min(matches.length, 100) + ' of ' + matches.length + ' matching tags. The CSV contains every tag and all 27 metrics.'
+        : 'No tags match your search.';
+    }
+
+    function showReport(days) {
+      state.report = buildReport(state.data, days);
+      state.reportDays = days;
+      el('results').hidden = false;
+      el('results-subtitle').textContent = state.site + ' · ' + (days == null ? 'All time' : 'Past ' + days + ' days') + ' · ' + state.report.length + ' tags';
+      renderPreview();
+    }
+
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      if (state.busy) return;
+      let target, days;
+      try {
+        target = apiBaseFromSite(el('site-url').value.trim());
+        days = daysFromInput();
+      } catch (error) { setStatus('Check your settings', error.message, 'Error'); return; }
+      const token = el('token').value.trim();
+      if (!token) { setStatus('Token required', 'Enter an API access token.', 'Error'); return; }
+      el('token').value = '';
+      state.busy = true;
+      state.controller = new AbortController();
+      state.data = null;
+      state.report = null;
+      el('results').hidden = true;
+      el('run-button').disabled = true;
+      el('cancel-button').disabled = false;
+      el('activity').replaceChildren();
+      ['tag', 'question', 'answer', 'article'].forEach(name => updateCount(name, 0));
+      setProgress(0);
+      logActivity('Connecting to ' + target.base + '.');
+      try {
+        state.data = await collect(target.base, token, state.controller.signal);
+        state.site = target.label;
+        showReport(days);
+        setStatus('Report ready', 'Change the days field to recalculate from the data already collected.', 'Done');
+        logActivity('Report built and ready to download.');
+      } catch (error) {
+        if (state.controller.signal.aborted) {
+          setStatus('Collection cancelled', 'No report was created.', 'Ready');
+          logActivity('Cancelled.');
+        } else {
+          setStatus('Could not build the report', error.message || 'An unexpected error occurred.', 'Error');
+          logActivity('Stopped after an API or browser error.');
+        }
+      } finally {
+        state.busy = false;
+        state.controller = null;
+        el('run-button').disabled = false;
+        el('cancel-button').disabled = true;
+      }
+    });
+
+    el('cancel-button').addEventListener('click', () => state.controller?.abort());
+    el('days').addEventListener('change', () => {
+      if (!state.data || state.busy) return;
+      try { showReport(daysFromInput()); }
+      catch (error) { setStatus('Check your settings', error.message, 'Error'); }
+    });
+    el('tag-search').addEventListener('input', () => { if (state.report) renderPreview(); });
+    el('download-button').addEventListener('click', () => {
+      if (!state.report) return;
+      const days = state.reportDays;
+      const now = new Date();
+      const date = [now.getFullYear(), String(now.getMonth() + 1).padStart(2, '0'), String(now.getDate()).padStart(2, '0')].join('-');
+      const filename = date + '_tag_metrics' + (days == null ? '' : '_past_' + days + '_days') + '.csv';
+      const url = URL.createObjectURL(new Blob([csvForReport(state.report)], { type: 'text/csv;charset=utf-8' }));
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.append(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+
+    window.TagReport = { apiBaseFromSite, buildReport, csvForReport, columns, timestamp };
+  })();
+  </script>
+</body>
+</html>
