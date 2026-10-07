@@ -5,110 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <title>Stack Internal Tag Report</title>
+  <link rel="stylesheet" href="assets/stacks.min.css">
+  <link rel="stylesheet" href="assets/report-ui.css">
   <style>
-    :root { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #172331; background: #f4f6f8; }
-    * { box-sizing: border-box; }
-    body { margin: 0; }
-    button, input { font: inherit; }
-    button { cursor: pointer; }
-    .shell { max-width: 1240px; margin: 0 auto; padding: 36px 24px 72px; }
-    .topline { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 30px; }
-    .brand { display: flex; align-items: center; gap: 12px; font-weight: 750; letter-spacing: -.02em; }
-    .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; background: #f48225; color: white; font-size: 20px; }
-    .eyebrow { color: #52657a; font-size: 12px; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
-    h1 { font-size: clamp(32px, 5vw, 54px); letter-spacing: -.055em; line-height: 1.08; margin: 10px 0 12px; }
-    h2 { font-size: 20px; letter-spacing: -.025em; margin: 0; }
-    p { line-height: 1.55; }
-    .intro { max-width: 690px; color: #52657a; font-size: 17px; margin: 0 0 30px; }
+    body.report-app { --report-width: 1240px; }
     .layout { display: grid; grid-template-columns: minmax(280px, 380px) minmax(0, 1fr); gap: 20px; align-items: start; }
-    .card { background: #fff; border: 1px solid #dce3e9; border-radius: 16px; box-shadow: 0 10px 30px rgba(24, 40, 56, .045); }
-    .setup { padding: 26px; }
-    .setup h2 { margin-bottom: 20px; }
-    label { display: block; font-size: 13px; font-weight: 700; margin: 18px 0 7px; }
-    label:first-of-type { margin-top: 0; }
-    input { width: 100%; border: 1px solid #c5d0da; border-radius: 9px; padding: 11px 12px; background: #fff; color: #172331; outline-offset: 2px; }
-    input:focus { border-color: #e56e13; outline: 2px solid #ffd8b7; }
-    input::placeholder { color: #91a0ad; }
-    .hint { margin: 6px 0 0; color: #657689; font-size: 12px; line-height: 1.4; }
-    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
-    .primary, .secondary, .quiet { border-radius: 9px; padding: 10px 15px; font-weight: 700; border: 1px solid transparent; }
-    .primary { background: #df6811; color: #fff; }
-    .primary:hover { background: #c4580b; }
-    .secondary { background: #fff; border-color: #bdc9d3; color: #26394b; }
-    .secondary:hover { background: #f2f5f7; }
-    .quiet { background: transparent; color: #52657a; padding-left: 0; }
-    button:disabled { cursor: not-allowed; opacity: .5; }
-    .security { margin: 20px 0 0; border-top: 1px solid #edf0f3; padding-top: 17px; font-size: 12px; color: #617287; }
+    .card { padding: 24px; }
+    .setup .s-label { display: block; margin: 18px 0 6px; }
+    .setup .s-label:first-of-type { margin-top: 0; }
+    .setup .s-description { margin: 5px 0 0; font-size: 13px; }
+    .required-note { margin: 0; color: var(--black-500); font-size: 13px; }
+    .actions { margin-top: 24px; }
+    .security { margin: 20px 0 0; border-top: 1px solid var(--bc-light); padding-top: 17px; font-size: 13px; }
     .workspace { min-width: 0; }
-    .status-card { padding: 24px; }
     .status-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
-    .badge { border-radius: 999px; background: #eef2f5; color: #4f6476; font-size: 12px; font-weight: 750; padding: 6px 10px; white-space: nowrap; }
-    .badge.running { background: #fff2e7; color: #ad4c08; }
-    .badge.done { background: #e8f6ed; color: #236c3f; }
-    .badge.error { background: #fdeceb; color: #a7352b; }
     #status-message { font-weight: 700; margin: 21px 0 4px; }
-    #status-detail { color: #637487; margin: 0; font-size: 13px; }
-    .progress { height: 7px; border-radius: 999px; background: #e9eef2; overflow: hidden; margin: 24px 0 18px; }
-    .progress > span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #e56e13, #f5aa60); transition: width .2s ease; }
+    #status-detail { color: var(--black-500); margin: 0; font-size: 13px; }
+    .progress { height: 8px; border-radius: var(--br-pill); background: var(--black-150); overflow: hidden; margin: 24px 0 18px; }
+    .progress > span { display: block; height: 100%; width: 0; background: var(--theme-primary); transition: width .2s ease; }
     .counts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-    .count { padding: 13px; background: #f6f8fa; border-radius: 10px; }
-    .count strong { display: block; font-size: 21px; letter-spacing: -.04em; }
-    .count span { color: #6b7c8b; font-size: 11px; font-weight: 650; text-transform: uppercase; letter-spacing: .06em; }
-    .activity { border-top: 1px solid #edf0f3; margin: 21px 0 0; padding: 16px 0 0 18px; color: #647588; font-size: 12px; min-height: 58px; }
+    .count { padding: 13px; }
+    .count strong { display: block; font-size: 21px; }
+    .count span { color: var(--black-500); font-size: 12px; font-weight: 600; }
+    .activity { border-top: 1px solid var(--bc-light); margin: 21px 0 0; padding: 16px 0 0 18px; color: var(--black-500); font-size: 13px; min-height: 58px; }
     .activity li { margin: 4px 0; }
-    .results { margin-top: 20px; overflow: hidden; }
+    .results { margin-top: 20px; padding: 0; overflow: hidden; }
     .results-top { display: flex; justify-content: space-between; gap: 18px; align-items: center; padding: 23px 24px 17px; }
-    .results-top p { color: #657689; font-size: 13px; margin: 5px 0 0; }
+    .results-top p { color: var(--black-500); font-size: 13px; margin: 5px 0 0; }
     .result-tools { display: flex; gap: 10px; align-items: center; padding: 0 24px 18px; }
     .result-tools input { max-width: 320px; }
-    .table-wrap { overflow-x: auto; }
-    table { border-collapse: collapse; width: 100%; min-width: 740px; font-size: 13px; }
-    th, td { text-align: left; padding: 12px 16px; border-top: 1px solid #edf0f3; white-space: nowrap; }
-    th { color: #66788b; background: #f8fafb; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
-    td:first-child { font-weight: 700; }
-    td.num { font-variant-numeric: tabular-nums; text-align: right; }
-    th.num { text-align: right; }
-    tbody tr:hover { background: #fcf7f3; }
-    .table-note { padding: 12px 24px 18px; font-size: 12px; color: #6b7c8b; margin: 0; }
-    .empty { padding: 36px 24px; text-align: center; color: #708092; }
-    .help { margin-top: 20px; color: #637487; font-size: 12px; }
-    .help a { color: #a94b0c; }
-    [hidden] { display: none !important; }
+    .s-table { min-width: 740px; }
+    .s-table th { white-space: nowrap; }
+    .s-table td:first-child { font-weight: 700; }
+    .s-table .num { font-variant-numeric: tabular-nums; text-align: right; }
+    .table-note { padding: 12px 24px 18px; font-size: 13px; color: var(--black-500); margin: 0; }
+    .empty { padding: 36px 24px; text-align: center; color: var(--black-500); }
+    .help { margin-top: 20px; font-size: 13px; }
     @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } .counts { grid-template-columns: repeat(2, 1fr); } .results-top { align-items: start; flex-direction: column; } }
-    @media (max-width: 520px) { .shell { padding: 22px 14px 48px; } .setup, .status-card { padding: 20px; } .topline { margin-bottom: 24px; } .result-tools { flex-direction: column; align-items: stretch; } .result-tools input { max-width: none; } }
+    @media (max-width: 520px) { .result-tools { flex-direction: column; align-items: stretch; } .result-tools input { max-width: none; } }
   </style>
 </head>
-<body>
+<body class="report-app">
+  <div class="brand-bar"><div class="brand-bar-inner"><span class="brand-name">Stack Internal</span><span class="brand-meta">Browser tools · API v3</span></div></div>
   <main class="shell">
-    <div class="topline">
-      <div class="brand"><div class="brand-mark" aria-hidden="true">≡</div><span>Stack Internal</span></div>
-      <span class="eyebrow">API v3 · Browser edition</span>
-    </div>
-    <header>
-      <div class="eyebrow">Knowledge health</div>
-      <h1>Tag report</h1>
+    <header class="page-header">
+      <h1 class="fs-headline2">Tag report</h1>
       <p class="intro">See how tags are used across questions, answers, and articles. Build the report in your browser and download a CSV without installing anything.</p>
     </header>
 
     <div class="layout">
       <section class="card setup" aria-labelledby="setup-title">
-        <h2 id="setup-title">Build a report</h2>
+        <h2 class="fs-title" id="setup-title">Build a report</h2>
         <form id="report-form">
-          <label for="site-url">Team or site URL</label>
-          <input id="site-url" type="url" placeholder="https://stackoverflowteams.com/c/your-team" autocomplete="url" required>
-          <p class="hint">Use your Teams URL or Enterprise site URL.</p>
+          <p class="required-note">Required fields <abbr class="s-required-symbol" title="required">*</abbr></p>
+          <label class="s-label" for="site-url">Team or site URL <abbr class="s-required-symbol" title="required">*</abbr></label>
+          <input class="s-input" id="site-url" type="url" placeholder="https://stackoverflowteams.com/c/your-team" autocomplete="url" required>
+          <p class="s-description">Use your Teams URL or Enterprise site URL.</p>
 
-          <label for="token">API access token</label>
-          <input id="token" type="password" placeholder="Paste your token" autocomplete="off" spellcheck="false" required>
-          <p class="hint">Used only for read-only API v3 requests. Cleared from this form when collection starts.</p>
+          <label class="s-label" for="token">API access token <abbr class="s-required-symbol" title="required">*</abbr></label>
+          <input class="s-input" id="token" type="password" placeholder="Paste your token" autocomplete="off" spellcheck="false" required>
+          <p class="s-description">Used only for read-only API v3 requests. Cleared from this form when collection starts.</p>
 
-          <label for="days">Days of history</label>
-          <input id="days" type="number" min="1" step="1" placeholder="All time" inputmode="numeric">
-          <p class="hint">Leave blank for all time. Last Used is always calculated from all fetched content.</p>
+          <label class="s-label" for="days">Days of history</label>
+          <input class="s-input" id="days" type="number" min="1" step="1" placeholder="All time" inputmode="numeric">
+          <p class="s-description">Leave blank for all time. Last Used is always calculated from all fetched content.</p>
 
           <div class="actions">
-            <button class="primary" id="run-button" type="submit">Generate report</button>
-            <button class="secondary" id="cancel-button" type="button" disabled>Cancel</button>
+            <button class="s-btn" id="run-button" type="submit">Generate report</button>
+            <button class="s-btn s-btn__tonal" id="cancel-button" type="button" disabled>Cancel</button>
           </div>
         </form>
         <p class="security">Your token and fetched content stay in this browser tab. Closing or reloading the page clears them. The CSV is saved only when you choose Download.</p>
@@ -116,7 +80,7 @@
 
       <div class="workspace">
         <section class="card status-card" aria-live="polite">
-          <div class="status-head"><h2>Collection status</h2><span class="badge" id="status-badge">Ready</span></div>
+          <div class="status-head"><h2 class="fs-title">Collection status</h2><span class="s-badge s-badge__tonal" id="status-badge">Ready</span></div>
           <p id="status-message">Ready when you are</p>
           <p id="status-detail">Enter a URL and token to collect data from API v3.</p>
           <div class="progress" role="progressbar" aria-label="Collection progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progress-fill"></span></div>
@@ -131,11 +95,11 @@
 
         <section class="card results" id="results" hidden aria-labelledby="results-title">
           <div class="results-top">
-            <div><h2 id="results-title">Report preview</h2><p id="results-subtitle"></p></div>
-            <button class="primary" id="download-button" type="button">Download CSV</button>
+            <div><h2 class="fs-title" id="results-title">Report preview</h2><p id="results-subtitle"></p></div>
+            <button class="s-btn" id="download-button" type="button">Download CSV</button>
           </div>
-          <div class="result-tools"><input id="tag-search" type="search" placeholder="Find a tag" aria-label="Find a tag"></div>
-          <div class="table-wrap"><table><thead><tr><th>Tag</th><th class="num">Questions</th><th class="num">Answers</th><th class="num">Articles</th><th class="num">Views</th><th class="num">Contributors</th><th>Last used</th></tr></thead><tbody id="preview-body"></tbody></table></div>
+          <div class="result-tools"><input class="s-input" id="tag-search" type="search" placeholder="Find a tag" aria-label="Find a tag"></div>
+          <div class="table-wrap s-table-container"><table class="s-table s-table__bx"><thead><tr><th scope="col">Tag</th><th scope="col" class="num">Questions</th><th scope="col" class="num">Answers</th><th scope="col" class="num">Articles</th><th scope="col" class="num">Views</th><th scope="col" class="num">Contributors</th><th scope="col">Last used</th></tr></thead><tbody id="preview-body"></tbody></table></div>
           <p class="table-note" id="table-note"></p>
         </section>
       </div>
@@ -177,7 +141,7 @@
       el('status-detail').textContent = detail;
       const badgeEl = el('status-badge');
       badgeEl.textContent = badge;
-      badgeEl.className = 'badge ' + (badge === 'Collecting' ? 'running' : badge === 'Done' ? 'done' : badge === 'Error' ? 'error' : '');
+      badgeEl.className = 's-badge ' + (badge === 'Collecting' ? 's-badge__info' : badge === 'Done' ? 's-badge__success' : badge === 'Error' ? 's-badge__danger' : 's-badge__tonal');
     }
 
     function setProgress(percent) {

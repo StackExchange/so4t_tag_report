@@ -1,12 +1,12 @@
 # Stack Internal Tag Report
 
-**Use the [standalone HTML report](tag-report.html).** It is the recommended version of this tool. Open the file in a modern browser, connect it to your Stack Internal site with an API access token, and download a CSV report. There is nothing to install.
+**Use the [HTML report](tag-report.html).** It is the recommended version of this tool. Keep the `assets/` folder beside the HTML file, open it in a modern browser, connect it to your Stack Internal site with an API access token, and download a CSV report. There is nothing to install.
 
 The Python scripts remain in this repository for historical reference only. They are no longer the recommended way to generate a report.
 
 ## Use the HTML report
 
-1. Download [tag-report.html](tag-report.html) and open it in your browser.
+1. Download this repository and open [tag-report.html](tag-report.html) in your browser, keeping `assets/` beside it.
 2. Enter your Teams URL, such as `https://stackoverflowteams.com/c/TEAM-NAME`, or the root URL of your Enterprise site, such as `https://SUBDOMAIN.stackenterprise.co`.
 3. Paste a personal access token (Basic or Business) or an OAuth access token (Enterprise) with permission to read the site.
 4. Optionally enter a number of days. Leave it blank for an all-time report.
